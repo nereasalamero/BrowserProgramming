@@ -1,11 +1,104 @@
+<!--
+    Title:          Project 1. Personal web page
+    Author:         Nerea Salamero Labara
+    Date:           2025-01-13
+    Subject:        Browser Programming
+    Description:    Film page.
+-->
+
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>First example</title>
-        <link rel="stylesheet" href="styles.css">
-    </head>
-    <body>
-        
+<head>
+    <title>Nerea's Favorite Films</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <header>
+        <h1>Welcome to Nerea's Favorite Films</h1>
+    </header>
+
+    <section id="about">
+        <h2>About Me</h2>
+        <div>
+            <img src="assets/profile_pic.jpg" alt="Profile Picture" class="profile-pic" height="150px" width="115px">
+            <p>Hi! I'm a huge movie enthusiast who loves exploring different genres and directors. Movies are not just entertainment for me; they inspire creativity and offer fresh perspectives on life.</p>
         </div>
+    </section>
+
+    <section id="genres">
+        <h2>My Favorite Genres</h2>
+        <ul>
+            <li>Science Fiction</li>
+            <li>Drama</li>
+            <li>Comedy</li>
+            <li>Thriller</li>
+        </ul>
+    </section>
+
+    <section id="top-movies">
+        <h2>Top Movies</h2>
+        <table>
+            <tr>
+                <th>Title</th>
+                <th>Director</th>
+                <th>Year</th>
+            </tr>
+            <tr>
+                <td>Inception</td>
+                <td>Christopher Nolan</td>
+                <td>2010</td>
+            </tr>
+            <tr>
+                <td>The Shawshank Redemption</td>
+                <td>Frank Darabont</td>
+                <td>1994</td>
+            </tr>
+            <tr>
+                <td>Parasite</td>
+                <td>Bong Joon-ho</td>
+                <td>2019</td>
+            </tr>
+        </table>
+    </section>
+
+    <section id="recently-watched">
+        <h2>Recently Watched</h2>
+        <ol>
+            <li>Everything Everywhere All At Once</li>
+            <li>The Batman</li>
+            <li>Dune</li>
+        </ol>
+    </section>
+
+    <section id="fun-quotes">
+        <h2>Fun Quotes</h2>
+        <pre>
+    "Why so serious?" - The Dark Knight
+    "May the Force be with you." - Star Wars
+    "Life is like a box of chocolates. You never know what you're gonna get." - Forrest Gump
+        </pre>
+    </section>
+
+    <section id="glossary">
+        <h2>Glossary</h2>
+        <dl>
+            <dt>Director</dt>
+            <dd>The person responsible for the creative vision of a movie.</dd>
+            <dt>Cinematography</dt>
+            <dd>The art of capturing visual images on film.</dd>
+            <dt>Genre</dt>
+            <dd>A category of movies based on style or subject matter.</dd>
+        </dl>
+    </section>
+
+    <footer>
+        <p>Contact me at <a href="mailto:movieenthusiast@example.com">movieenthusiast@example.com</a></p>
+        <p>Visit <a href="https://www.imdb.com" target="_blank" title="IMDb - The Internet Movie Database">IMDb</a> for more movie details!</p>
+        <a href="https://www.imdb.com/title/tt1375666/" target="_blank">
+            <img src="https://via.placeholder.com/150" alt="Inception Poster" title="Click to see Inception on IMDb">
+        </a>
+    </footer>
+
     </body>
 </html>
