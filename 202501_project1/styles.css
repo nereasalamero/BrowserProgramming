@@ -37,6 +37,7 @@ th, td {
     text-align: left;
 }
 pre {
+    white-space: pre-wrap;      /* To wrap long lines of text */
     background-color: #eee;
     padding: 10px;
     border-radius: 5px;
@@ -61,17 +62,16 @@ p {
     line-height: 1.5;
     font-size: medium;
 }
+.navbar {
+    background-color: #333;
+    overflow: hidden;
+    font-size: small;
+}
 .about-container {
     display: flex;
-    align-items: center; /* Vertically aligns the image and text */
-    gap: 20px; /* Adds space between the columns */
+    align-items: center;
+    gap: 20px;
 }
-
 .profile-pic {
-    flex-shrink: 0; /* Prevents the image from shrinking */
-    border-radius: 10px; /* Optional: Rounds the corners of the image */
-}
-
-.about-container div {
-    max-width: 600px; /* Optional: Restricts the width of the text for better readability */
+    border-radius: 10px; 
 }

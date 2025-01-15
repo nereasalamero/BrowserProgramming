@@ -18,14 +18,25 @@
 
 <body>
     <header>
-        <h1>Welcome to <i>Nerea's Favorite Films</i></h1>
+        <h3>Welcome to <i>Nerea's Favorite Films</i></h3>
+        <h5>Discover the magic of cinema with me!🎬🍿</h5>
+        <nav>
+            <p class="navbar">
+                <a href="#about">About</a> | 
+                <a href="#genres">Genres</a> | 
+                <a href="#top-movies">Top Movies</a> | 
+                <a href="#recently-watched">Recently Watched</a> | 
+                <a href="#quotes">Quotes</a> | 
+                <a href="#glossary">Glossary</a>
+            </p>
+        </nav>
     </header>
 
     <section id="about">
         <h2>About Me</h2>
         <h4>Hi there!👋</h4>
         <div class="about-container">
-            <img src="assets/profile_pic.jpg" alt="Profile Picture" class="profile-pic" height="150px" width="115px">        
+            <img src="assets/profile_pic.jpg" alt="Profile Picture" class="profile-pic" height="150px">        
             <p>
                 I'm <b>Nerea</b>, an Spanish IT student with a passion for films and the art of storytelling.
                 From iconic classics to the latest blockbusters, I’m constantly trying to keep an eye on the latest releases while exploring the huge world of cinema.<br>
@@ -38,47 +49,55 @@
 
     <section id="genres">
         <h2>My Favorite Genres</h2>
-        <ul>
-            <li>Fantasy</li>
-            <li>Thriller</li>
-            <li>Romance</li>
-            <li>Science Fiction</li>
-            <li>Comedy</li>
-        </ul>
+        <div class="about-container">
+            <img src="assets/cinema.jpg" height="150px">
+            <div>
+                <ul>
+                    <li>Fantasy</li>
+                    <li>Thriller</li>
+                    <li>Romance</li>
+                    <li>Science Fiction</li>
+                    <li>Comedy</li>
+                </ul>
+            </div>
+        </div>
     </section>
 
     <section id="top-movies">
         <h2>Top Movies</h2>
+        <div class="about-container" >
+            <p><b>Click on each poster to watch the movie's trailer:</b></p>
+            <a href="https://www.youtube.com/watch?v=AST2-4db4ic" target="_blank" title="Little Women Trailer" class="myblue">
+                <img src="assets/little_women.jpg" height="150px">
+            </a>
+            <a href="https://www.youtube.com/watch?v=VwErvYgoH70" target="_blank" title="Click to watch Harry Potter Trailer" class="myblue">
+                <img src="assets/harry_potter.jpg" height="150px">
+            </a>
+            <a href="https://www.youtube.com/watch?v=W_H7_tDHFE8" target="_blank" title="Click to watch Cars Trailer" class="myblue">
+                <img src="assets/cars.jpg" height="150px">
+            </a>
+        </div>
+        
         <table>
             <tr>
                 <th>Title</th>
                 <th>Director</th>
                 <th>Year</th>
-                <th>Trailer</th>
             </tr>
             <tr>
                 <td>Little Women</td>
                 <td>Greta Gerwig</td>
                 <td>2019</td>
-                <td>
-                    <a href="https://www.youtube.com/watch?v=AST2-4db4ic" target="_blank" title="Little Women Trailer">Little Women Trailer</a>
-                </td>
             </tr>
             <tr>
                 <td>Harry Potter and the Prisoner of Azkaban</td>
                 <td>Alfonso Cuarón</td>
                 <td>2004</td>
-                <td>
-                    <a href="https://www.youtube.com/watch?v=8L2QIyODm1M" target="_blank" title="Click to watch Harry Potter Trailer">HP and the Prisoner of Azkaban Trailer</a>
-                </td>
             </tr>
             <tr>
                 <td>Cars</td>
                 <td>John Lasseter & Joe Ranft</td>
                 <td>2006</td>
-                <td>
-                    <a href="https://www.youtube.com/watch?v=SbXIj2T-_uk" target="_blank" title="Click to watch Cars Trailer">Cars Trailer</a>
-                </td>
             </tr>
         </table>
     </section>
@@ -86,14 +105,14 @@
     <section id="recently-watched">
         <h2>Recently Watched</h2>
         <ol>
-            <li>Dune</li>
+            <li>Mamma Mia</li>
             <li>The Hunger Games</li>
-            <li>Little Women</li>
+            <li>Dune</li>
         </ol>
     </section>
 
-    <section id="fun-quotes">
-        <h2>Fun Quotes</h2>
+    <section id="quotes">
+        <h2>Quotes</h2>
         <pre>
 "May the Force be with you." - Star Wars    
 "Life is like a box of chocolates. You never know what you're gonna get." - Forrest Gump
