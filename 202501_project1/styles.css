@@ -57,3 +57,7 @@ a:hover {
     color: #003366;
     text-decoration: underline;
 }
+p {
+    line-height: 1.5;
+    font-size: small;
+}

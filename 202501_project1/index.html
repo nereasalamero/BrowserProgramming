@@ -3,7 +3,10 @@
     Author:         Nerea Salamero Labara
     Date:           2025-01-13
     Subject:        Browser Programming
-    Description:    Film page.
+    Description:    Create a personal webpage dedicated to your favorite movies. The goal is to
+                    practice using fundamental HTML elements and simple CSS formatting by creating
+                    a unique version of the webpage example we created together in class. Follow
+                    the guidelines provided to ensure your project meets the requirements.
 -->
 
 <!DOCTYPE html>
@@ -36,10 +39,12 @@
     <section id="genres">
         <h2>My Favorite Genres</h2>
         <ul>
+            <li>Fantasy</li>
+            <li>Thriller</li>
+            <li>Romance</li>
             <li>Science Fiction</li>
             <li>Drama</li>
             <li>Comedy</li>
-            <li>Thriller</li>
         </ul>
     </section>
 
@@ -50,21 +55,31 @@
                 <th>Title</th>
                 <th>Director</th>
                 <th>Year</th>
+                <th>Trailer</th>
             </tr>
             <tr>
-                <td>Inception</td>
-                <td>Christopher Nolan</td>
-                <td>2010</td>
-            </tr>
-            <tr>
-                <td>The Shawshank Redemption</td>
-                <td>Frank Darabont</td>
-                <td>1994</td>
-            </tr>
-            <tr>
-                <td>Parasite</td>
-                <td>Bong Joon-ho</td>
+                <td>Little Women</td>
+                <td>Greta Gerwig</td>
                 <td>2019</td>
+                <td>
+                    <a href="https://www.youtube.com/watch?v=AST2-4db4ic" target="_blank" title="Little Women Trailer">Little Women Trailer</a>
+                </td>
+            </tr>
+            <tr>
+                <td>Harry Potter and the Prisoner of Azkaban</td>
+                <td>Alfonso Cuarón</td>
+                <td>2004</td>
+                <td>
+                    <a href="https://www.youtube.com/watch?v=8L2QIyODm1M" target="_blank" title="Click to watch Harry Potter Trailer">HP and the Prisoner of Azkaban Trailer</a>
+                </td>
+            </tr>
+            <tr>
+                <td>Cars</td>
+                <td>John Lasseter & Joe Ranft</td>
+                <td>2006</td>
+                <td>
+                    <a href="https://www.youtube.com/watch?v=SbXIj2T-_uk" target="_blank" title="Click to watch Cars Trailer">Cars Trailer</a>
+                </td>
             </tr>
         </table>
     </section>
@@ -72,39 +87,59 @@
     <section id="recently-watched">
         <h2>Recently Watched</h2>
         <ol>
-            <li>Everything Everywhere All At Once</li>
-            <li>The Batman</li>
             <li>Dune</li>
+            <li>The Hunger Games</li>
+            <li>Little Women</li>
         </ol>
     </section>
 
     <section id="fun-quotes">
         <h2>Fun Quotes</h2>
-        <p>
-            "Why so serious?" - The Dark Knight<br>
-            "May the Force be with you." - Star Wars<br>
+        <pre>
+            "May the Force be with you." - Star Wars
             "Life is like a box of chocolates. You never know what you're gonna get." - Forrest Gump
-        </p>
+            "Why don't you make like a tree and get outta here?" - Back to the Future
+            "I don't know how to put this, but I'm kind of a big deal." - Anchorman
+            "According to the map, we've only gone 4 inches." - Dumb and Dumber
+            "I'm gonna make him an offer he can't refuse." - The Godfather
+            "I feel the need... the need for speed!" - Top Gun
+            "To infinity and beyond!" - Toy Story
+            "Good night, Westley. Good work. Sleep well. I'll most likely kill you in the morning" - The Princess Bride
+        </pre>
     </section>
 
     <section id="glossary">
         <h2>Glossary</h2>
         <dl>
             <dt>Director</dt>
-            <dd>The person responsible for the creative vision of a movie.</dd>
+                <dd>The person responsible for the creative vision of a movie.</dd>
             <dt>Cinematography</dt>
-            <dd>The art of capturing visual images on film.</dd>
+                <dd>The art of capturing visual images on film.</dd>
             <dt>Genre</dt>
-            <dd>A category of movies based on style or subject matter.</dd>
+                <dd>A category of movies based on style or subject matter.</dd>
+            <dt>Plot</dt>
+                <dd>The main story of a movie.</dd>
+            <dt>Sequel</dt>
+                <dd>A movie that continues the story of a previous movie.</dd>
+            <dt>Prequel</dt>
+                <dd>A movie that tells the story that happened before a previous movie.</dd>
+            <dt>Starring</dt>
+                <dd>The actors who play roles in the movie.</dd>
+            <dt>Soundtrack</dt>
+                <dd>The music that accompanies a movie.</dd>
+            <dt>Trailer</dt>
+                <dd>A short preview of a movie.</dd>
+            <dt>Box office</dt>
+                <dd>The total amount of money made from the sale of tickets for a movie.</dd>
+            <dt>Rating</dt>
+                <dd>A score given to a movie to indicate its quality.</dd>
         </dl>
     </section>
 
     <footer>
-        <p>Contact me at <a href="mailto:movieenthusiast@example.com">movieenthusiast@example.com</a></p>
+        <p>Contact me at <a href="mailto:nereasalamero@gmail.com">nereasalamero@gmail.com</a></p>
         <p>Visit <a href="https://www.imdb.com" target="_blank" title="IMDb - The Internet Movie Database">IMDb</a> for more movie details!</p>
-        <a href="https://www.imdb.com/title/tt1375666/" target="_blank">
-            <img src="https://via.placeholder.com/150" alt="Inception Poster" title="Click to see Inception on IMDb">
-        </a>
+        <a href="#about" class="back-to-top">Back to top</a>
     </footer>
 
     </body>
