@@ -59,5 +59,19 @@ a:hover {
 }
 p {
     line-height: 1.5;
-    font-size: small;
+    font-size: medium;
+}
+.about-container {
+    display: flex;
+    align-items: center; /* Vertically aligns the image and text */
+    gap: 20px; /* Adds space between the columns */
+}
+
+.profile-pic {
+    flex-shrink: 0; /* Prevents the image from shrinking */
+    border-radius: 10px; /* Optional: Rounds the corners of the image */
+}
+
+.about-container div {
+    max-width: 600px; /* Optional: Restricts the width of the text for better readability */
 }
