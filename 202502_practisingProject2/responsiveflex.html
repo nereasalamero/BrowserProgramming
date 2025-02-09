@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <style>
+      .container {
+        display:flex; /* create flexbox */
+        flex-direction:column;
+        gap: 1rem; /* space between items */
+        padding: 1rem;
+      }
+      .box {
+        flex:1;
+        background-color:aqua;
+        border: 1px solid #ccc;
+        text-align: center;
+        padding: 1rem;
+      }
+    /* media query for larger screens */
+    @media (min-width: 768px) {
+      .container {
+        flex-direction:row;
+      }
+      .box {
+        background-color:red;
+        color:white;
+      }
+    }
+    /*
+"viewport" => tells definitions based on visible screen size
+content="width=device-width => use the whole screen width
+ initial-scale=1.0 => in original state, zoom factor = 1
+
+ Units:
+ Absolute units: px (pixels), cm, mm, etc.
+ pros: predictable, consistent size
+ cons: not as flexible as relative values with different screen sizes
+
+ Relative units:
+ %: percentage ot the parent element
+ em: relative to the font size of parent element
+ rem: relative to the font size of root (html) element
+ vh/vw: relative to viewport height/width (1vh = 1% of viewport height,
+ 1vw = 1% of viewport width)
+    */
+    </style>
+
+  </head>
+  <body>
+    <div class="container">
+      <div class="box">Column 1</div>
+      <div class="box">Column 2</div>
+      <div class="box">Column 2</div>
+    </div>
+  </body>
+</html>

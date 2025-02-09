@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      #details {
+        border:1px solid blue;
+      }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+      $(document).ready(function(){
+
+        const cars = ["Saab", "Volvo", "BMW"];
+        // this is a 'global' variable
+        const persons = [{name:"John", age:12}, {name:"Ann", age:33}];
+        initLocalstorage(); // runs this when document is loaded
+        /*
+        for(let i = 0; i<cars.length; i++) {
+        document.getElementById("demo").innerHTML += cars[i];
+        }
+        for(let i = 0; i<persons.length; i++) {
+        document.getElementById("demo2").innerHTML += "Name is: " +persons[i].name + " age is: " + persons[i].age;
+        }
+        */
+       $("#btnShowFirst").click(function(){
+        showPerson(0);
+       });
+      function initLocalstorage() {
+        localStorage.setItem("allPersons", JSON.stringify(persons));
+      }
+        function showPerson(num) {
+  //        document.getElementById("demo2").innerHTML += "Name is: " +persons[num].name + " age is: " + persons[num].age;
+          let myPersons = JSON.parse(localStorage.getItem("allPersons"));
+          $("#demo2").html("Name is: " +myPersons[num].name + " age is: " + myPersons[num].age);
+//  document.getElementById("demo2").innerHTML = "Name is: " +myPersons[num].name + " age is: " + myPersons[num].age;
+/*
+HTML        jQUERY
+innerHTML   html()
+textContent text()
+value       val()
+            attr() -shows the attribute
+            attr(,value) - sets the value
+*/
+        }
+        $("#showHide").click(function() {
+          $("#details").toggle(3000); // hides or shows the element
+        });
+        $("#fadeDetails").click(function() {
+          $("#details").fadeToggle(3000); // hides or shows the element
+        });
+        $("#fadeDetails2").click(function() {
+          $("#details").fadeTo(3000,0.5); // hides or shows the element
+        });
+        $("#showImageUrl").click(function() {
+         alert( $("#cat").attr("src")); // shows images url
+        });
+        $("#setImageUrl").click(function() {
+         $("#cat").attr("src","https://imgs.search.brave.com/WpoQv-L59LYI0irEsolkgOLF5LQocF09DlRloextWOY/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvMTI0/ODMzNzcyOS9waG90/by9jYXQtb24td2hp/dGUtd2Fsa2luZy1h/d2F5LmpwZz9zPTYx/Mng2MTImdz0wJms9/MjAmYz1mRXRRVm9I/enN0YWNvbG42eUFS/S3BjeE9LYThfakFi/VmlIMlFVSnN4YXpV/PQ"); // shows images url
+        });
+    }) // document.ready
+      </script>
+  </head>
+<body>
+<h1>JavaScript Arrays</h1>
+<button id="btnShowFirst">Show first person</button>
+<p id="demo"></p>
+<p id="demo2"></p>
+<img id="cat" src="https://imgs.search.brave.com/uqUfh6fab1TxtAAv5C3s2qS6uck6Byn9EOL0lqSzTWk/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly90NC5m/dGNkbi5uZXQvanBn/LzAwLzc3LzUxLzgx/LzM2MF9GXzc3NTE4/MTM2X0Y4OEkwdjNS/Mm1ac0tFZ3h4WE1j/NGlxWGxPaks4T0xF/LmpwZw" />
+<div>
+  <button id="showHide">Show or hide details</button>
+  <button id="fadeDetails">Fade in/out details</button>
+  <button id="fadeDetails2">FadeTo details</button>
+  <button id="showImageUrl">Show image url</button>
+  <button id="setImageUrl">Set image url</button>
+
+</div>
+<div id="details">
+  <h1>More information</h1>
+  <p>This is description of ....</p>
+</div>
+
+</body>
+</html>

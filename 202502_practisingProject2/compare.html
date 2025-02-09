@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h1>JavaScript Variables</h1>
+
+<p>In this example, x, y, and z are variables.</p>
+
+<p id="demo"></p>
+
+<p id="num">100</p>
+<p id="compare"></p>
+
+<script>
+const x = 5;
+const y = 6;
+const my = document.getElementById("num").textContent;
+// const myNum = Number(my);
+const myNum = parseInt(my);
+const z = myNum + x + y;
+document.getElementById("demo").innerHTML =
+"The value of z is: " + z;
+
+// how to compare values
+const my2 = document.getElementById("compare");
+my2.textContent = x == 5;
+my2.textContent += x == '5';
+my2.textContent += x === '5';
+</script>
+
+</body>
+</html>

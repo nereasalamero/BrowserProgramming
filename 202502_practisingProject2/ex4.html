@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script>
+      const cars = ["Saab", "Volvo", "BMW"];
+      // this is a 'global' variable
+      const persons = [{name:"John", age:12}, {name:"Ann", age:33}];
+      /*
+      for(let i = 0; i<cars.length; i++) {
+      document.getElementById("demo").innerHTML += cars[i];
+      }
+      for(let i = 0; i<persons.length; i++) {
+      document.getElementById("demo2").innerHTML += "Name is: " +persons[i].name + " age is: " + persons[i].age;
+      }
+      */
+     function initLocalstorage() {
+      localStorage.setItem("allPersons", JSON.stringify(persons));
+     }
+      function showPerson(num) {
+//        document.getElementById("demo2").innerHTML += "Name is: " +persons[num].name + " age is: " + persons[num].age;
+        let myPersons = JSON.parse(localStorage.getItem("allPersons"));
+        alert(typeof(myPersons));
+document.getElementById("demo2").innerHTML += "Name is: " +myPersons[num].name + " age is: " + myPersons[num].age;
+
+      }
+      </script>
+  </head>
+<body>
+<h1>JavaScript Arrays</h1>
+<button onclick="initLocalstorage()">Initialize</button>
+<button id="btnShowFirst" onclick="showPerson(0)">Show first person</button>
+<p id="demo"></p>
+<p id="demo2"></p>
+
+
+
+</body>
+</html>

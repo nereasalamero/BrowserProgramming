@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+  <head>
+<style>
+  .container {
+    display:grid; /* makes the page follow grid layout */
+    grid-template-rows: auto 1fr auto;
+    grid-template-columns: 200px 1fr;
+    grid-template-areas:
+    "header header"
+    "nav main"
+    "footer footer";
+    min-height:30vh;
+  }
+  header {
+    grid-area:header;
+    background-color: #333;
+    color: white;
+    padding:1rem;
+    text-align:center;
+  }
+  nav {
+    grid-area:nav;
+    background-color:#f4f4f4;
+    padding:1rem;
+  }
+  main {
+    grid-area:main;
+    padding:1rem;
+  }
+  footer {
+    grid-area:footer;
+    background-color:#b05b5b;
+    color:darkblue;
+    padding:1rem;
+    text-align:center;
+  }
+  form fieldset {
+    border: 2px solid #aaa;
+    padding:1rem;
+    margin-bottom:1rem;
+    background-color: aquamarine;
+  }
+  form legend {
+    font-weight:bold;
+    padding: 0 10px;
+  }
+  form label {
+    display: inline-block;
+    width:100px;
+    margin-bottom:0.5rem;
+  }
+  form input[type="text"] {
+    margin-right:1rem;
+  }
+  from input[type="radio"],
+  from input[type="checkbox"] {
+    margin-left:5px;
+    margin-right:10px;
+  }
+  from input[type="date"],
+  from input[type="color"] {
+    margin-left:1rem;
+    margin-right:0.5rem;
+  }
+  @media (max-width: 600px) {
+  .container {
+    /* One column, more rows */
+    grid-template-rows: auto auto 1fr auto;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "header"
+      "nav"
+      "main"
+      "footer";
+  }
+}
+
+</style>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>Grid example</h1>
+      </header>
+      <nav>
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </nav>
+<!-- Main content-->
+      <main>
+      <section>
+        <h2>Welcome to first section</h2>
+        <p>This is a simple section.</p>
+      </section>
+      <section>
+        <article>
+          <form>
+            <fieldset>
+              <legend>Personal Information</legend>
+              <!-- first name -->
+              <label for="first_name">First name:</label>
+              <input type="text" id="first_name" name="first_name"/>
+              <label for="last_name">Last name:</label>
+              <input type="text" id="last_name" name="last_name"/>
+            </fieldset>
+            <fieldset>
+              <legend>Programming languages</legend>
+              <label for="html">HTML</label>
+              <input type="radio" id="html" name="languages" value="HTML" /><br />
+              <label for="css">CSS</label>
+              <input type="radio" id="css" name="languages" value="CSS" /><br />
+              <label for="javascript">javascript</label>
+              <input type="radio" id="javascript" name="languages" value="javascript" />
+            
+          </fieldset>
+          <fieldset>
+            <legend>Hobbies</legend>
+            <label for="bike">Biking</label>
+            <input type="checkbox" id="bike" name="hobby" value="biking" />
+            <label for="hike">Hiking</label>
+            <input type="checkbox" id="hike" name="hobby" value="hiking" />
+            <label for="skate">Skating</label>
+            <input type="checkbox" id="skate" name="hobby" value="skating" />
+            <input type="color"> 
+            <input type="date"> 
+            <label for="favorite_sport">Favorite sport</label>
+            <input list="sports" id="favorite_sport" name="favorite_sport"/>
+            <datalist id="sports">
+              <option value="Football"></option>
+              <option value="Basketball"></option>
+              <option value="Biking"></option>
+              <option value="Hiking"></option>
+            </datalist>
+          </fieldset>          
+          </form>
+        </article>
+        <aside>
+
+        </aside>
+      </section>
+    </main>
+      <footer>
+        <h4>Grid example stops here</h4>
+      </footer>
+    </div>
+  </body>
+</html>

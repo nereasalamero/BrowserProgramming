@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+
+    </style>
+    <script>
+      function copyName() {
+        // const - constant, you cannot change the value after it is set
+        // var, let - variables, you can change variable values
+        // var - scope is the document (= global variable)
+        // let - scope is the block where it locates (for, function etc.
+        // curly brackets {} deffines the scope)
+        const givenName = document.getElementById("person").value;
+        const result = document.getElementById("result");
+        result.textContent = givenName;
+      }
+    </script>
+  </head>
+  <body>
+    <h1>Handling form with javascript</h1>
+    <form>
+      <label for="person">Person's name</label>
+      <input id="person" name="person" type="text" placeholder="write your name" />
+
+      <input type="button" value="Do something" />
+        </form>
+    <nav>
+      <button onclick="copyName()">Copy name</button>
+    </nav>
+    <div id="result">
+
+    </div>
+  </body>
+</html>
