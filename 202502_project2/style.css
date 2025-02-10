@@ -1,0 +1,222 @@
+/*
+ *  Title:          Project 2. Product showcase/web shop
+ *  Author:         Nerea Salamero Labara
+ *  Date:           2025-02-10
+ *  File:           style.css
+ *  Subject:        Browser Programming
+ *  Description:    A product showcase or web shop with basic interactivity. Follow
+ *                  the guidelines provided to ensure your project meets the requirements.
+ */
+
+/* General style */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
+}
+
+.container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px;
+    background: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+/* Principal heading */
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+/* Search bar */
+#search {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-bottom: 20px;
+    margin-right: 20px;
+}
+
+input, button {
+    padding: 10px;
+    margin: 5px 0;
+    width: 100%;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+/* Form style */
+#product-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-right: 20px;
+}
+
+#product-form input,
+#product-form button {
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    margin-right: 20px;
+}
+
+#product-form button {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#product-form button:hover {
+    background-color: #218838;
+}
+
+
+/* Product list */
+#product-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.product {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: 0.3s;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+.product:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.product img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.product strong {
+    font-size: 18px;
+    color: #333;
+    display: block;
+    margin-top: 10px;
+}
+
+.product p {
+    font-size: 14px;
+    color: #666;
+    margin: 5px 0;
+}
+
+/* Butons inside of the products */
+.product button {
+    width: 100%;
+    margin-top: 10px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.view-details {
+    background-color: #007bff;
+    color: white;
+}
+
+.view-details:hover {
+    background-color: #0056b3;
+}
+
+.add-to-cart {
+    background-color: #28a745;
+    color: white;
+}
+
+.add-to-cart:hover {
+    background-color: #218838;
+}
+
+/* Cart */
+#cart {
+    margin-top: 30px;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    text-align: left;
+}
+
+#cart p {
+    margin: 0;
+    font-size: 20px;
+    color: #333;
+}
+
+#cart-summary {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0;
+}
+
+#cart-summary li {
+    font-size: 16px;
+    color: #333;
+    padding: 5px;
+}
+
+#total-price {
+    font-size: 18px;
+    font-weight: bold;
+    color: #28a745;
+    margin-top: 10px;
+}
+
+#clear-cart {
+    background-color: #cf636e;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+#clear-cart:hover {
+    background-color: #c82333;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .container {
+        width: 90%;
+    }
+
+    #product-list {
+        grid-template-columns: 1fr;
+    }
+}

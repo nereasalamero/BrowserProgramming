@@ -1,121 +1,59 @@
 <!--
     Title:          Project 2. Product showcase/web shop
     Author:         Nerea Salamero Labara
-    Date:           2025-01-29
+    Date:           2025-02-10
     File:           index.html
     Subject:        Browser Programming
-    Description:    Create a personal webpage dedicated to your favorite movies. The goal is to
-                    practice using fundamental HTML elements and simple CSS formatting by creating
-                    a unique version of the webpage example we created together in class. Follow
+    Description:    A product showcase or web shop with basic interactivity. Follow
                     the guidelines provided to ensure your project meets the requirements.
 -->
-
-<!--
-    Product Showcase / Web Shop
-
-    Schedule: Weeks 3-6
-    Description: A product showcase or web shop with basic interactivity.
-    Key Features:
-    CSS layouts, forms, and JavaScript basics.
-    Introduce jQuery in Week 5-6:
-    DOM selection and manipulation (highlight products, toggle visibility).
-    Basic animations (fade/slide effects for product details).
-    Points: 25%
-    Focus: Plain JavaScript for core functionality, limited use of jQuery for interactivity.
-
--->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Digital Bookstore</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Web Shop</title>
+    <!-- <link rel="stylesheet" href="styles.css"> -->
+    <link rel="stylesheet" href="style.css"> 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script defer src="script.js"></script>
+
 </head>
 <body>
     <header>
-        <h1>Welcome to the Digital Bookstore</h1>
-        <input type="text" id="search" placeholder="Search for a book...">
+        <h1>Welcome to the Product Web Shop</h1>
     </header>
-    
-    <div class="book-list">
-        <div class="book" data-genre="fiction">
-            <img src="book1.jpg" alt="Book 1">
-            <h2>Book Title 1</h2>
-            <p class="price">$10.99</p>
-            <button class="details-btn">View Details</button>
-            <div class="details">
-                <p>Author: John Doe</p>
-                <p>Description: This is a great book!</p>
-            </div>
-            <button class="add-to-cart">Add to Cart</button>
-        </div>
-        
-        <div class="book" data-genre="manga">
-            <img src="book2.jpg" alt="Book 2">
-            <h2>Manga Title</h2>
-            <p class="price">$8.99</p>
-            <button class="details-btn">View Details</button>
-            <div class="details">
-                <p>Author: Jane Smith</p>
-                <p>Description: A thrilling manga story.</p>
-            </div>
-            <button class="add-to-cart">Add to Cart</button>
+    <div class="container">
+        <!-- Product Form -->
+        <h3>Add a New Product</h3>
+        <form id="product-form">
+            <input type="text" id="product-name" placeholder="Product Name" required>
+            <input type="number" id="product-price" placeholder="Price" required>
+            <input type="text" id="product-image" placeholder="Image URL (optional)">
+            <textarea id="product-description" placeholder="Description"></textarea>
+            <button type="submit">Add Product</button>
+        </form>
+
+        <!-- Search Bar-->
+        <h3>Search Products</h3>
+        <input type="text" id="search" placeholder="Search products...">
+
+        <!-- Product List -->
+        <h3>Products</h3>
+        <div id="product-list"></div>
+
+        <h3>Shopping Cart</h3>
+        <div id="cart">
+            <p>Items in Cart: <span id="cart-counter">0</span></p>
+            <p>Total Price:  $<span id="cart-total">0</span></p>
+            <ul id="cart-summary"></ul>
+            <button id="clear-cart">Clear Cart</button>
         </div>
     </div>
-    
-    <div id="cart">Cart: <span id="cart-count">0</span> items</div>
-    
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-        }
-        .book-list {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 20px;
-        }
-        .book {
-            border: 1px solid #ccc;
-            padding: 10px;
-            width: 200px;
-            text-align: center;
-        }
-        .details {
-            display: none;
-            margin-top: 10px;
-        }
-        #cart {
-            margin-top: 20px;
-            font-weight: bold;
-        }
-    </style>
-    
-    <script>
-        $(document).ready(function() {
-            $('.details-btn').click(function() {
-                $(this).siblings('.details').slideToggle();
-            });
 
-            let cartCount = 0;
-            $('.add-to-cart').click(function() {
-                cartCount++;
-                $('#cart-count').text(cartCount);
-            });
-
-            $('#search').on('input', function() {
-                let query = $(this).val().toLowerCase();
-                $('.book').each(function() {
-                    let title = $(this).find('h2').text().toLowerCase();
-                    $(this).toggle(title.includes(query));
-                });
-            });
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
+
+
+
+
