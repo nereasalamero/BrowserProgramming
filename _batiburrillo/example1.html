@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>First example</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+      b {
+        color:red;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <h1>My Books</h1>
+      <ul>
+        <li>Hamlet</li>
+        <li>Adventures of X</li>
+        <li>Series
+          <ul>
+            <li>Book 1</li>
+            <li>Book 2</li>
+            <li><img src="https://imgs.search.brave.com/0PJWYchL5-EUoKveanLLtZh-gmOEshe6KPb9IJLP05Y/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvMTA3/NjgzMjkxNC9waG90/by9hZHZlbnR1cmUt/dGltZS5qcGc_cz02/MTJ4NjEyJnc9MCZr/PTIwJmM9el9GUG1Z/ZTByRldjNVJ6WmNI/WDVqeWF1RFhLeHcy/dnVubTdzWHQwcTlQ/az0" /></li>
+            <li><img id="img2" src="https://imgs.search.brave.com/0PJWYchL5-EUoKveanLLtZh-gmOEshe6KPb9IJLP05Y/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvMTA3/NjgzMjkxNC9waG90/by9hZHZlbnR1cmUt/dGltZS5qcGc_cz02/MTJ4NjEyJnc9MCZr/PTIwJmM9el9GUG1Z/ZTByRldjNVJ6WmNI/WDVqeWF1RFhLeHcy/dnVubTdzWHQwcTlQ/az0" /></li>
+            <li>Book 3 <del>Rev 1</del><ins> later revision</ins></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <div>
+      <h2>Authors</h2>
+      <ol>
+        <li class="myblue">Shakespeare</li>
+        <li>Irving John</li>
+        <li>Einstein E=mc<sup>2</sup></li> See list <sub>2</sub>
+      </ol>
+    </div>
+    <div>
+      <h2 class="myblue">Topics</h2>
+      <dl>
+ <!-- This is comment that browers skips
+        -->       
+        <dt>Adventure</dt>
+        <dd><b>Contents</b> is <b style="color:blue;">about</b> <i>having</i> fun 
+          or <strong>extraordinary</strong> events</dd>
+
+        <dt>Document</dt>
+        <dd>real life</dd>
+      </dl>
+    </div>
+
+    <div>
+      <table border="1">
+        <thead>
+          <colgroup>
+            <col style="background-color:yellow">
+            <col style="background-color:green">
+
+          </colgroup>
+        </thead>
+        <tbody>
+          <tr>
+            <th>Number</th>
+            <th>Book</th>
+            <th colspan="2">Authors</th>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>Book 1</td>
+            <td class="myblue">Steinbeck</td>
+            <td>Irving</td>
+          </tr>
+          <tr>
+            <td rowspan="2">2</td>
+            <td>Book 2</td>
+            <td>Steinbeck</td>
+            <td>Hammer</td>
+          </tr>
+          <tr>
+
+            <td>Book 2_1</td>
+            <td>Steinbeck</td>
+            <td>Hammer</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>

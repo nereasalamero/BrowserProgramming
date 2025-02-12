@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Shop</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Product Web Shop</h2>
+
+        <h3>Add a New Product</h3>
+        <form >
+            <button type="submit">Add Product</button>
+        </form>
+
+        <h3>Products</h3>
+        <div id="product-list"></div>
+
+        <h3>Shopping Cart</h3>
+        <div id="cart">
+
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            let products = []; // array of all products added
+            let cart = []; // array of products added to cart
+
+        /* 
+   displayProducts function:
+   --------------------------
+   This function updates the #product-list container with all products stored in the 'products' array.
+   It first clears the existing product list and then 
+   loops through 'products' to generate HTML for each item.
+
+   Structure of the generated HTML:
+   - Each product is wrapped in a <div class="product">.
+   - The 'data-id' attribute stores the product's unique ID, 
+   which is used for identifying it when adding to the cart.
+   - The product's name and price are displayed inside an <h4> element.
+   - The product image is shown inside an <img> tag.
+   - A button with class '.add-to-cart' is included to allow 
+   adding the product to the cart.
+
+   Naming conventions:
+   - 'productList' refers to the #product-list container.
+   - 'p' represents a single product object from the 'products' array.
+   - The 'id' field in each product is assigned dynamically based on its index in the array.
+
+   The function does not return anything but directly 
+   modifies the HTML content of #product-list.
+
+   Arrow Function:
+   ----------------
+   The function uses an arrow function inside 'forEach()': 
+       products.forEach((p) => { ... });
+
+   - This is a shorter syntax for writing functions in JavaScript.
+   - Equivalent to: products.forEach(function(p) { ... });
+   - The 'p' parameter represents the current product in the loop.
+   - The arrow function allows concise, inline processing without the need for 
+     explicitly writing 'function' or handling 'this' context.
+*/
+        function displayProducts() {
+            let productList = $('#product-list');
+            productList.html('');
+            products.forEach((p) => {
+                productList.append(`
+                    <div class="product" data-id="${p.id}">
+                        <h4>${p.name} - $${p.price}</h4>
+                        <img src="${p.image}" alt="${p.name}">
+                        <button class="view-details">View Details</button>
+                        <p class="hidden">${p.description}</p>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                `);
+            });
+        }
+
+            // Add Product
+            $('#product-form').submit(function(e) {
+                e.preventDefault();
+
+            });
+
+            // Add to Cart Event
+// We use event delegation because products are added dynamically.
+// A normal event handler like $('.add-to-cart').click(function() { ... }) only works 
+// for elements that exist when the page loads. Since new products are added later, 
+// those buttons would not have the event listener.
+//
+// Instead, we attach the event to #product-list (a static parent element) 
+// and specify '.add-to-cart' as the child selector. This way, any '.add-to-cart' 
+// button inside #product-list, even if added later, will trigger the event.
+//
+// '.add-to-cart' is a class name given to buttons that allow users to add 
+// products to their cart. Using a specific class name ensures the event only 
+// applies to those buttons and not other elements.
+/*
+When you stored the data-id into the '#product-div', and the
+button with class ''.add-to-cart' is its child, you can read the data-id value
+with jquery in 2 ways:
+  let productId = $(this).parent().data('id'); // Read data-id from parent div
+  let productId = $(this).parent().attr('data-id'); // Read as string
+If needed, change the value from string to number with parseInt etc.
+*/
+            $('#product-list').on('click', '.add-to-cart', function() {
+
+            });
+
+            // Update Cart Display
+            function updateCart() {
+
+            }
+
+            // Clear Cart
+            $('#clear-cart').click(function() {
+
+            });
+        });
+    </script>
+</body>
+</html>
