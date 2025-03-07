@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        table {
+            margin-top: 20px;
+        }
+        .modal-body img {
+            max-width: 100%;
+            display: block;
+            margin: 10px auto;
+            border-radius: 5px;
+        }
+        #loading {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container my-4">
+        <h2 class="text-center">Product Dashboard</h2>
+        <div id="loading" class="text-center d-none">Loading...</div>
+        <table class="table table-striped mt-3">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Price</th>
+                    <th>Brand</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="productTableBody"></tbody>
+        </table>
+    </div>
+
+    <!-- Modal for product details -->
+    <div class="modal fade" id="productModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="productModalLabel">Product Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Product details -->
+                    <p id="productDescription"></p>
+                    <img id="productImage" alt="Product Image" class="img-fluid d-none" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        async function fetchProducts() {
+            document.getElementById('loading').classList.remove('d-none');
+            try {
+                const res = await fetch('https://dummyjson.com/products');
+                if (!res.ok) {
+                    throw new Error(`HTTP error! Status: ${res.status}`);
+                }
+                const json = await res.json();
+                renderTable(json.products);
+            } catch (error) {
+                console.error('Error fetching products:', error);
+                alert('Failed to fetch products. Please try again later.');
+            } finally {
+                document.getElementById('loading').classList.add('d-none');
+            }
+        }
+
+        function renderTable(products) {
+            const tableBody = document.getElementById('productTableBody');
+            
+            tableBody.innerHTML = '';
+            products.forEach(product => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${product.id}</td>
+                    <td>${product.title}</td>
+                    <td>${product.price}</td>
+                    <td>${product.brand}</td>
+                    <td><button class="btn btn-primary btn-sm" onclick="showProductDetails(${product.id})">View</button></td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        async function showProductDetails(productId) {
+            try {
+                const res = await fetch(`https://dummyjson.com/products/${productId}`);
+                if (!res.ok) {
+                    throw new Error(`HTTP error! Status: ${res.status}`);
+                }
+                const product = await res.json();
+                const label = document.getElementById('productModalLabel').textContent = product.title;
+                const desc = document.getElementById('productDescription').textContent = product.description;
+                const img = document.getElementById('productImage');
+                if (product.images && product.images.length > 0) {
+                    img.src = product.images[0];
+                    img.classList.remove('d-none');
+                } else {
+                    img.classList.add('d-none');
+                }
+                // Show the modal
+                new bootstrap.Modal(document.getElementById('productModal')).show();
+            } catch (error) {
+                console.error('Error fetching product details:', error);
+                alert('Failed to load product details. Please try again.');
+            }
+        }
+
+        window.onload = fetchProducts;
+    </script>
+</body>
+</html>
