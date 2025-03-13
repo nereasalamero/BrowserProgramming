@@ -1,3 +1,14 @@
+<!-- 
+    Title:          Project 3. Product dashboardwith DummyJSON
+    Author:         Nerea Salamero Labara
+    Date:           2025-03-10
+    File:           index.html
+    Subject:        Browser Programming
+    Description:    Single-page web application that fetches product data from the DummyJSON API
+                    and displays it in a table. When a user clicks a row (or a button) for a
+                    product, show more details in a Bootstrap modal.
+-->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -81,14 +92,16 @@
 
         async function showProductDetails(productId) {
             try {
-                const res = await fetch(`https://dummyjson.com/products/${productId}`);
+                const res = await fetch(`https://dummyjson.com/products/${productId}`); // Fetch product details
                 if (!res.ok) {
+                    // If the response is not OK, throw an error
                     throw new Error(`HTTP error! Status: ${res.status}`);
                 }
                 const product = await res.json();
                 const label = document.getElementById('productModalLabel').textContent = product.title;
                 const desc = document.getElementById('productDescription').textContent = product.description;
                 const img = document.getElementById('productImage');
+                // Checks the image availability
                 if (product.images && product.images.length > 0) {
                     img.src = product.images[0];
                     img.classList.remove('d-none');
@@ -97,12 +110,12 @@
                 }
                 // Show the modal
                 new bootstrap.Modal(document.getElementById('productModal')).show();
-            } catch (error) {
+            } catch (error) { 
                 console.error('Error fetching product details:', error);
                 alert('Failed to load product details. Please try again.');
             }
         }
-
+        // Fetch products on page load
         window.onload = fetchProducts;
     </script>
 </body>

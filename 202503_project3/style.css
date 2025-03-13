@@ -1,11 +1,12 @@
 /*
- *  Title:          Project 2. Product showcase/web shop
+ *  Title:          Project 3. Product dashboardwith DummyJSON
  *  Author:         Nerea Salamero Labara
- *  Date:           2025-02-10
+ *  Date:           2025-03-10
  *  File:           style.css
  *  Subject:        Browser Programming
- *  Description:    A product showcase or web shop with basic interactivity. Follow
- *                  the guidelines provided to ensure your project meets the requirements.
+ *  Description:    Single-page web application that fetches product data from the DummyJSON API
+ *                  and displays it in a table. When a user clicks a row (or a button) for a
+ *                  product, show more details in a Bootstrap modal.
  */
 
 /* General style */
