@@ -1,0 +1,55 @@
+/*
+ *  Title:          Project 2. Product showcase/web shop
+ *  Author:         Nerea Salamero Labara
+ *  Date:           2025-02-10
+ *  File:           style.css
+ *  Subject:        Browser Programming
+ *  Description:    A product showcase or web shop with basic interactivity. Follow
+ *                  the guidelines provided to ensure your project meets the requirements.
+ */
+
+/* General style */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+}
+.container {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Principal heading */
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+
+table {
+    margin-top: 20px;
+}
+.modal-body img {
+    max-width: 100%;
+    display: block;
+    margin: 10px auto;
+    border-radius: 5px;
+}
+
+#loading {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #007bff;
+}
+/* Buttons */
+.btn-primary {
+    background-color: #2cbed1;
+    border-color: #2cbed1;
+}
+.btn-primary:hover {
+    background-color: #0069d9;
+    border-color: #0062cc;
+}
