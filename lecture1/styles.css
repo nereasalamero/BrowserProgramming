@@ -1,0 +1,24 @@
+img {
+  width: 200px;
+  height:100px;
+}
+#img2 {
+  width:100px;
+  height:auto;
+}
+.myblue {
+  color:#09a9ff;
+}
+h2 {
+  color:red;
+}
+b {
+  color:rgb(240,145,100);
+}
+ul {
+  list-style-type: square;
+}
+ul.bc {
+  list-style-image: url('email.webp');
+
+}

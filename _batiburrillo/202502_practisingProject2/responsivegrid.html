@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- 
+    The meta viewport tag ensures the page displays properly on mobile devices,
+    matching the device width and initial scale.
+  -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Responsive Grid Example</title>
+  <style>
+    /* 
+      1) GLOBAL & MOBILE-FIRST STYLES
+         - Single column grid
+         - Different background color and border in mobile view 
+    */
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    .container {
+      display: grid;
+      /* One column by default (mobile-first) */
+      grid-template-columns: 1fr;
+      gap: 1rem;
+      padding: 1rem;
+      /* Center container, useful if you want a max width */
+      margin: 0 auto;
+      max-width: 1200px;
+    }
+
+    .box {
+      background-color: #ffe6e6; /* Light pink-ish for mobile */
+      border: 2px dashed #ff4444; /* Dashed red border in mobile */
+      text-align: center;
+      padding: 2rem;
+    }
+
+    /* 
+      2) MEDIA QUERY FOR LARGER SCREENS
+         - Switch to three columns
+         - Change background color and border style
+    */
+    @media (min-width: 768px) {
+      .container {
+        /* Three equally sized columns on bigger screens */
+        grid-template-columns: repeat(3, 1fr);
+      }
+      
+      .box {
+        background-color: #e6f7ff; /* Light blue-ish for desktop/tablet */
+        border: 2px solid #0088cc; /* Solid blue border for larger screens */
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1 style="text-align: center;">Responsive Grid Example</h1>
+
+  <div class="container">
+    <div class="box">Column 1</div>
+    <div class="box">Column 2</div>
+    <div class="box">Column 3</div>
+  </div>
+
+</body>
+</html>

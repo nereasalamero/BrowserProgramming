@@ -1,0 +1,548 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Bootstrap Feature Demonstration</title>
+
+  <!-- Bootstrap CSS -->
+  <link 
+    rel="stylesheet" 
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+  />
+
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <!-- Bootstrap Bundle (includes Popper) -->
+  <script 
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+  ></script>
+
+  <!-- Custom script -->
+  <script>
+    $(document).ready(function () {
+      //
+      // 1) STUDENT INFO FORM VALIDATION
+      //
+      // We'll handle the 'Check' button in the Student Info form.
+      $("#studentCheckBtn").on("click", function (event) {
+        event.preventDefault();
+
+        const studentNumber = $("#studentNumber").val().trim();
+        const startYear = $("#startYear").val().trim();
+
+        let formValid = true;
+
+        // Validate Student Number: exactly 6 digits
+        if (!/^\d{6}$/.test(studentNumber)) {
+          formValid = false;
+          // Add is-invalid class; remove is-valid
+          $("#studentNumber").addClass("is-invalid").removeClass("is-valid");
+        } else {
+          $("#studentNumber").addClass("is-valid").removeClass("is-invalid");
+        }
+
+        // Validate Start Year: >= 2020
+        const yearNum = parseInt(startYear, 10);
+        if (!startYear || isNaN(yearNum) || yearNum < 2020) {
+          formValid = false;
+          $("#startYear").addClass("is-invalid").removeClass("is-valid");
+        } else {
+          $("#startYear").addClass("is-valid").removeClass("is-invalid");
+        }
+
+        // If all valid, show success toast
+        if (formValid) {
+          showToast("Form submitted successfully!", "bg-success text-white");
+        } else {
+          showToast("Please fix errors and try again.", "bg-danger text-white");
+        }
+      });
+
+
+      //
+      // 2) COURSES PAGINATION
+      //
+      // We have two pages: We'll show/hide rows or a container for each "page".
+      // By default, show page1 and hide page2.
+      $("#page2Rows").hide();
+
+      $("#page1Link").on("click", function (e) {
+        e.preventDefault();
+        $("#page1Rows").show();
+        $("#page2Rows").hide();
+
+        // Update active class
+        $(".page-link").removeClass("active");
+        $(this).addClass("active");
+      });
+
+      $("#page2Link").on("click", function (e) {
+        e.preventDefault();
+        $("#page1Rows").hide();
+        $("#page2Rows").show();
+
+        $(".page-link").removeClass("active");
+        $(this).addClass("active");
+      });
+
+
+      //
+      // 3) CAMPUS INFO ACCORDION
+      //
+      // Nothing special needed in JS for a basic accordion, as Bootstrap uses
+      // data attributes. The markup below handles it.
+
+      //
+      // 4) TOAST NOTIFICATIONS
+      //
+      // We have one toast container and a single toast element. The function
+      // below reuses that toast for any message and style.
+      //
+      // There's also a button in the "Notifications" tab that shows a test toast.
+      $("#showToastBtn").on("click", function () {
+        showToast("This is a sample toast notification!", "bg-info text-dark");
+      });
+
+      // Reusable function to show a toast with a given message and color classes
+      function showToast(message, colorClasses) {
+        const toastEl = $("#liveToast");
+        // Update the body text
+        toastEl.find(".toast-body").text(message);
+        // Remove existing color classes (bg-* text-*) from previous calls
+        toastEl.removeClass("bg-success bg-danger bg-info text-white text-dark");
+        // Add the new color classes
+        toastEl.addClass(colorClasses);
+
+        // Actually show the toast
+        const toast = new bootstrap.Toast(toastEl[0]);
+        toast.show();
+      }
+    });
+  </script>
+
+  <style>
+    /* Small custom style to give the toast container a fixed position bottom-right */
+    .toast-container {
+      position: fixed;
+      bottom: 1rem;
+      right: 1rem;
+      z-index: 1100; /* above modals if needed */
+    }
+  </style>
+</head>
+<body class="bg-light">
+
+<!-- NAVBAR (Dark) -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Peppi</a>
+    <button 
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse" 
+      data-bs-target="#navbarContent"
+      aria-controls="navbarContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarContent">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item">
+          <a class="nav-link active" href="#">Home</a>
+        </li>
+        <!-- Another example dropdown -->
+        <li class="nav-item dropdown">
+          <a 
+            class="nav-link dropdown-toggle"
+            href="#"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Tools
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Lunch</a></li>
+            <li><a class="dropdown-item" href="#">Tutoring</a></li>
+            <li><a class="dropdown-item" href="#">Sports</a></li>
+          </ul>
+        </li>
+      </ul>
+      <form class="d-flex" role="search">
+        <input 
+          class="form-control me-2"
+          type="text" 
+          placeholder="User ID"
+        />
+        <input 
+          class="form-control me-2"
+          type="password"
+          placeholder="Password"
+        />
+        <button class="btn btn-success" type="submit">Login</button>
+      </form>
+    </div>
+  </div>
+</nav>
+
+
+<!-- MAIN CONTENT: TABS -->
+<div class="container mt-4">
+
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button
+        class="nav-link active"
+        id="student-tab"
+        data-bs-toggle="tab"
+        data-bs-target="#student"
+        type="button"
+        role="tab"
+        aria-controls="student"
+        aria-selected="true"
+      >
+        Student Info
+      </button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button
+        class="nav-link"
+        id="courses-tab"
+        data-bs-toggle="tab"
+        data-bs-target="#courses"
+        type="button"
+        role="tab"
+        aria-controls="courses"
+        aria-selected="false"
+      >
+        Courses
+      </button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button
+        class="nav-link"
+        id="campus-tab"
+        data-bs-toggle="tab"
+        data-bs-target="#campus"
+        type="button"
+        role="tab"
+        aria-controls="campus"
+        aria-selected="false"
+      >
+        Campus Info
+      </button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button
+        class="nav-link"
+        id="notifications-tab"
+        data-bs-toggle="tab"
+        data-bs-target="#notifications"
+        type="button"
+        role="tab"
+        aria-controls="notifications"
+        aria-selected="false"
+      >
+        Notifications
+      </button>
+    </li>
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content" id="myTabContent">
+    <!-- STUDENT INFO TAB -->
+    <div 
+      class="tab-pane fade show active p-3"
+      id="student"
+      role="tabpanel"
+      aria-labelledby="student-tab"
+    >
+      <h3>Student Information</h3>
+      <form id="studentForm" class="row g-3 needs-validation" novalidate>
+        <div class="col-md-6">
+          <label for="studentNumber" class="form-label">
+            Student Number (6 digits)
+          </label>
+          <input 
+            type="text"
+            class="form-control"
+            id="studentNumber"
+            placeholder="123456"
+            required
+          />
+          <div class="invalid-feedback">Please provide exactly 6 digits.</div>
+          <div class="valid-feedback">Looks good!</div>
+        </div>
+
+        <div class="col-md-6">
+          <label for="startYear" class="form-label">
+            Start Year (≥ 2020)
+          </label>
+          <input 
+            type="text"
+            class="form-control"
+            id="startYear"
+            placeholder="2023"
+            required
+          />
+          <div class="invalid-feedback">Please provide a valid year (≥ 2020).</div>
+          <div class="valid-feedback">Looks good!</div>
+        </div>
+
+        <div class="col-12">
+          <div class="form-check">
+            <input 
+              class="form-check-input"
+              type="checkbox"
+              id="rememberMe"
+            />
+            <label class="form-check-label" for="rememberMe">
+              Remember me
+            </label>
+          </div>
+        </div>
+
+        <div class="col-12">
+          <button 
+            type="button"
+            class="btn btn-primary"
+            id="studentCheckBtn"
+          >
+            Check
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- COURSES TAB -->
+    <div 
+      class="tab-pane fade p-3"
+      id="courses"
+      role="tabpanel"
+      aria-labelledby="courses-tab"
+    >
+      <h3>Courses</h3>
+      <!-- We'll show page 1 or page 2 of courses with simple JS toggling -->
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Course</th>
+            <th>Date</th>
+            <th>Grade</th>
+          </tr>
+        </thead>
+        <tbody id="page1Rows">
+          <tr>
+            <td>Programming Basics</td>
+            <td>3.4.2024</td>
+            <td>2/5</td>
+          </tr>
+          <tr>
+            <td>Programming Java</td>
+            <td>16.2.2024</td>
+            <td>5/5</td>
+          </tr>
+        </tbody>
+        <tbody id="page2Rows">
+          <tr>
+            <td>Mathematics I</td>
+            <td>28.1.2025</td>
+            <td>4/5</td>
+          </tr>
+          <tr>
+            <td>Mathematics II</td>
+            <td>11.9.2025</td>
+            <td>3/5</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Simple pagination -->
+      <nav aria-label="Course pages">
+        <ul class="pagination">
+          <li class="page-item">
+            <a class="page-link active" href="#" id="page1Link">1</a>
+          </li>
+          <li class="page-item">
+            <a class="page-link" href="#" id="page2Link">2</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <!-- CAMPUS INFO TAB -->
+    <div 
+      class="tab-pane fade p-3"
+      id="campus"
+      role="tabpanel"
+      aria-labelledby="campus-tab"
+    >
+      <h3>Campus Information</h3>
+      <!-- Accordion with cards for each campus -->
+      <div class="accordion" id="campusAccordion">
+        <!-- Kuopio -->
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingKuopio">
+            <button 
+              class="accordion-button"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapseKuopio"
+              aria-expanded="true"
+              aria-controls="collapseKuopio"
+            >
+              Kuopio Campus
+            </button>
+          </h2>
+          <div 
+            id="collapseKuopio"
+            class="accordion-collapse collapse show"
+            aria-labelledby="headingKuopio"
+            data-bs-parent="#campusAccordion"
+          >
+            <div class="accordion-body">
+              <div class="card">
+                <div class="card-header bg-warning">
+                  Kuopio
+                </div>
+                <div class="card-body">
+                  <p class="card-text">
+                    Kuopio campus is known for its tech programs and scenic lakeside setting.
+                  </p>
+                  <a href="#" class="btn btn-primary">More Info</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Iisalmi -->
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingIisalmi">
+            <button 
+              class="accordion-button collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapseIisalmi"
+              aria-expanded="false"
+              aria-controls="collapseIisalmi"
+            >
+              Iisalmi Campus
+            </button>
+          </h2>
+          <div 
+            id="collapseIisalmi"
+            class="accordion-collapse collapse"
+            aria-labelledby="headingIisalmi"
+            data-bs-parent="#campusAccordion"
+          >
+            <div class="accordion-body">
+              <div class="card">
+                <div class="card-header bg-warning">
+                  Iisalmi
+                </div>
+                <div class="card-body">
+                  <p class="card-text">
+                    Iisalmi campus specializes in health sciences and business studies.
+                  </p>
+                  <a href="#" class="btn btn-primary">More Info</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Varkaus -->
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingVarkaus">
+            <button 
+              class="accordion-button collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapseVarkaus"
+              aria-expanded="false"
+              aria-controls="collapseVarkaus"
+            >
+              Varkaus Campus
+            </button>
+          </h2>
+          <div 
+            id="collapseVarkaus"
+            class="accordion-collapse collapse"
+            aria-labelledby="headingVarkaus"
+            data-bs-parent="#campusAccordion"
+          >
+            <div class="accordion-body">
+              <div class="card">
+                <div class="card-header bg-warning">
+                  Varkaus
+                </div>
+                <div class="card-body">
+                  <p class="card-text">
+                    Varkaus campus is recognized for its engineering and mechanical programs.
+                  </p>
+                  <a href="#" class="btn btn-primary">More Info</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> <!-- end accordion -->
+    </div>
+
+    <!-- NOTIFICATIONS TAB (for Toast) -->
+    <div 
+      class="tab-pane fade p-3"
+      id="notifications"
+      role="tabpanel"
+      aria-labelledby="notifications-tab"
+    >
+      <h3>Notifications</h3>
+      <p>
+        Click the button below to see a sample toast notification in the bottom-right corner.
+      </p>
+      <button
+        class="btn btn-info"
+        id="showToastBtn"
+      >
+        Show Toast
+      </button>
+    </div>
+  </div> <!-- end tab-content -->
+</div> <!-- end container -->
+
+
+<!-- TOAST CONTAINER (fixed position) -->
+<div class="toast-container">
+  <div 
+    id="liveToast"
+    class="toast"
+    role="alert"
+    aria-live="assertive"
+    aria-atomic="true"
+    data-bs-delay="3000"
+    data-bs-autohide="true"
+  >
+    <div class="toast-header">
+      <strong class="me-auto">Notification</strong>
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="toast"
+        aria-label="Close"
+      ></button>
+    </div>
+    <div class="toast-body">
+      <!-- We'll dynamically set this text -->
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

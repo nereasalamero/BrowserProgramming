@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
+  $(function() {
+
+function appendText() {
+  var txt1 = "<p>Text.</p>";        // Create text with HTML
+  var txt2 = $("<p></p>").text("Text.");  // Create text with jQuery
+  var txt3 = document.createElement("p");
+  txt3.innerHTML = "Text.";         // Create text with DOM
+  $("body").append(txt1, txt2, txt3);   // Append new elements
+}
+  $("#btnMark").click(function() {
+    $("span").addClass("important");
+  });
+}); // document.ready
+</script>
+<style>
+  .important {
+  font-weight: bold;
+  font-size: xx-large;
+  color:crimson;
+}
+/* in mobile screens, lets have another look for important marking
+*/
+@media (max-width: 800px) {
+  .important {
+    font-weight: bold;
+    font-size: large;
+    color:blue;
+  }
+}
+</style>
+</head>
+<body>
+
+<p>This <span>is a paragraph</span>, few lines.</p>
+<button onclick="appendText()">Append text</button>
+<button id="btnMark">Mark selected text</button>
+</body>
+</html>

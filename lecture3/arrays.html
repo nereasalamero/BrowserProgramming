@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JavaScript Array Methods</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 20px;
+        }
+        button {
+            margin: 5px;
+        }
+        #output {
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            width: 100%;
+            max-width: 600px;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <h1>JavaScript Array Methods</h1>
+
+    <!-- Buttons to demonstrate the methods -->
+    <button onclick="testReset()">Reset Array</button>
+    <button onclick="testPush()">push()</button>
+    <button onclick="testPop()">pop()</button>
+    <button onclick="testUnshift()">unshift()</button>
+    <button onclick="testShift()">shift()</button>
+    <button onclick="testSort()">sort()</button>
+    <button onclick="testSplice()">splice()</button>
+    <button onclick="testSlice()">slice()</button>
+    <button onclick="testConcat()">concat()</button>
+    <button onclick="testJoin()">join()</button>
+    <button onclick="testReverse()">reverse()</button>
+    <button onclick="testIndexOf()">indexOf()</button>
+    <button onclick="testIncludes()">includes()</button>
+
+    <!-- Additional methods -->
+    <button onclick="testForEach()">forEach()</button>
+    <button onclick="testMap()">map()</button>
+    <button onclick="testFlatMap()">flatMap()</button>
+    <button onclick="testFilter()">filter()</button>
+    <button onclick="testReduce()">reduce()</button>
+    <button onclick="testReduceRight()">reduceRight()</button>
+    <button onclick="testEvery()">every()</button>
+    <button onclick="testSome()">some()</button>
+    <button onclick="testFrom()">Array.from()</button>
+    <button onclick="testKeys()">keys()</button>
+    <button onclick="testEntries()">entries()</button>
+    <button onclick="testWith()">with()</button>
+    <button onclick="testSpread()">Spread (...)</button>
+
+    <p><strong>Current Array:</strong></p>
+    <div id="output"></div>
+
+    <script>
+        // Our initial array
+        let fruits = ["Apple", "Banana", "Cherry"];
+
+        // Utility function to update the output
+        function updateOutput() {
+            const outputDiv = document.getElementById("output");
+            outputDiv.textContent = JSON.stringify(fruits, null, 2);
+        }
+
+        // Resets the array to its original state
+        // ---------------------------------------
+        function testReset() {
+            fruits = ["Apple", "Banana", "Cherry"];
+            updateOutput();
+        }
+
+        // Demonstrates push() - Adds an element to the end of the array
+        // -------------------------------------------------------------
+        function testPush() {
+            fruits.push("Orange");
+            updateOutput();
+        }
+
+        // Demonstrates pop() - Removes the last element of the array
+        // ----------------------------------------------------------
+        function testPop() {
+            fruits.pop();
+            updateOutput();
+        }
+
+        // Demonstrates unshift() - Adds an element to the beginning
+        // ---------------------------------------------------------
+        function testUnshift() {
+            fruits.unshift("Mango");
+            updateOutput();
+        }
+
+        // Demonstrates shift() - Removes the first element of the array
+        // -------------------------------------------------------------
+        function testShift() {
+            fruits.shift();
+            updateOutput();
+        }
+
+        // Demonstrates sort() - Sorts the array in place
+        // ----------------------------------------------
+        function testSort() {
+            fruits.sort();
+            updateOutput();
+        }
+
+        // Demonstrates splice() - Adds or removes elements in place
+        // ---------------------------------------------------------
+        function testSplice() {
+            // Remove 1 element at index 1 and insert "Grapes"
+            fruits.splice(1, 1, "Grapes");
+            updateOutput();
+        }
+
+        // Demonstrates slice() - Returns a portion of the array
+        // -----------------------------------------------------
+        function testSlice() {
+            const sliced = fruits.slice(0, 2);
+            alert("Result of slice(0, 2): " + JSON.stringify(sliced));
+        }
+
+        // Demonstrates concat() - Merges arrays
+        // --------------------------------------
+        function testConcat() {
+            const moreFruits = ["Pineapple", "Peach"];
+            const allFruits = fruits.concat(moreFruits);
+            alert("Result of concat(): " + JSON.stringify(allFruits));
+        }
+
+        // Demonstrates join() - Converts array to string
+        // ----------------------------------------------
+        function testJoin() {
+            alert("Result of join(' - '): " + fruits.join(" - "));
+        }
+
+        // Demonstrates reverse() - Reverses the array in place
+        // ----------------------------------------------------
+        function testReverse() {
+            fruits.reverse();
+            updateOutput();
+        }
+
+        // Demonstrates indexOf() - Finds the index of an element
+        // ------------------------------------------------------
+        function testIndexOf() {
+            alert("Index of 'Banana': " + fruits.indexOf("Banana"));
+        }
+
+        // Demonstrates includes() - Checks if an element exists
+        // -----------------------------------------------------
+        function testIncludes() {
+            alert("Includes 'Apple': " + fruits.includes("Apple"));
+        }
+
+        // Demonstrates forEach() - Executes a function for each element
+        // -------------------------------------------------------------
+        function testForEach() {
+            /* forEach doesn't return a value, so let's just console.log each item */
+            console.log("forEach result:");
+            fruits.forEach((fruit, index) => {
+                console.log(index + ": " + fruit);
+            });
+            alert("Check console for forEach() output.");
+        }
+
+        // Demonstrates map() - Creates a new array with modified elements
+        // in here it picks every fruit from the fruits array
+        // and adds its length to the result array
+        // --------------------------------------------------------------
+        function testMap() {
+            const lengths = fruits.map(fruit => fruit.length);
+            alert("Result of map(): " + JSON.stringify(lengths));
+        }
+
+        // Demonstrates flatMap() - Maps and flattens the result by one level
+   // The callback (phrase => phrase.split(" ")) maps each phrase to an array of words.
+  // For example, "hello world" -> ["hello", "world"] and "foo bar" -> ["foo", "bar"].
+  //
+  // Without flatMap(), using regular map would give you an array of arrays:
+  // [ ["hello", "world"], ["foo", "bar"] ]
+  //
+  // flatMap() then flattens one level, resulting in:
+  // ["hello", "world", "foo", "bar"].
+  //
+  // So, in one step, flatMap() both splits each phrase into words and merges
+  // all those small arrays into a single-level array.
+  // -----------------------------------------------------------------
+        function testFlatMap() {
+            // We'll create a sample array here for demonstration
+            const phrases = ["hello world", "foo bar"];
+            const splitWords = phrases.flatMap(phrase => phrase.split(" "));
+            alert("Result of flatMap(): " + JSON.stringify(splitWords));
+        }
+
+        // Demonstrates filter() - Filters elements based on a condition
+        // -------------------------------------------------------------
+        function testFilter() {
+            const longFruits = fruits.filter(fruit => fruit.length > 5);
+            alert("Result of filter() for fruit.length > 5: " + JSON.stringify(longFruits));
+        }
+
+        // Demonstrates reduce() - Reduces an array to a single value
+        // ----------------------------------------------------------
+        function testReduce() {
+            const numbers = [1, 2, 3, 4];
+            const sum = numbers.reduce((acc, num) => acc + num, 0);
+            alert("Result of reduce() on [1,2,3,4]: " + sum);
+        }
+
+        // Demonstrates reduceRight() - Reduces array from right to left
+        // ------------------------------------------------------------
+        function testReduceRight() {
+            const numbers = [1, 2, 3, 4];
+            const sumRight = numbers.reduceRight((acc, num) => acc + num, 0);
+            alert("Result of reduceRight() on [1,2,3,4]: " + sumRight);
+        }
+
+        // Demonstrates every() - Checks if all elements pass a condition
+        // --------------------------------------------------------------
+        function testEvery() {
+            const isAllLong = fruits.every(fruit => fruit.length > 4);
+            alert("Are all fruits.length > 4? " + isAllLong);
+        }
+
+        // Demonstrates some() - Checks if at least one element passes a condition
+        // -----------------------------------------------------------------------
+        function testSome() {
+            const hasShort = fruits.some(fruit => fruit.length < 5);
+            alert("Does the array have any fruit.length < 5? " + hasShort);
+        }
+
+        // Demonstrates Array.from() - Creates an array from an iterable
+        // --------------------------------------------------------------
+        function testFrom() {
+            const arrayFromString = Array.from("Hello");
+            alert("Result of Array.from('Hello'): " + JSON.stringify(arrayFromString));
+        }
+
+        // Demonstrates keys() - Returns an iterator of indices
+        // ----------------------------------------------------
+        function testKeys() {
+            const iterator = fruits.keys();
+            let indices = [];
+            for (let key of iterator) {
+                indices.push(key);
+            }
+            alert("Indices via keys(): " + JSON.stringify(indices));
+        }
+
+        // Demonstrates entries() - Returns an iterator of [index, value]
+        // -------------------------------------------------------------
+        function testEntries() {
+            const iterator = fruits.entries();
+            let pairArray = [];
+            for (let pair of iterator) {
+                pairArray.push(pair);
+            }
+            alert("Key-value pairs via entries(): " + JSON.stringify(pairArray));
+        }
+
+        // Demonstrates with() - Creates a new array with a changed value
+        // -------------------------------------------------------------
+        function testWith() {
+            // with() does not mutate the original array; it returns a new one.
+            if (!fruits.with) {
+                alert("Array.prototype.with is not supported in this environment.");
+                return;
+            }
+            const newFruits = fruits.with(1, "Kiwi");
+            alert("Result of with(1, 'Kiwi'): " + JSON.stringify(newFruits));
+        }
+
+        // Demonstrates the spread operator - Expands array elements
+        // ---------------------------------------------------------
+        function testSpread() {
+            const combined = [...fruits, "Mango"];
+            alert("Result of spread [...fruits, 'Mango']: " + JSON.stringify(combined));
+        }
+
+        // Initialize display
+        updateOutput();
+/*
+        const user = {name:"Alice", age:25};
+        const updatedUser = {...user, age:30};
+        alert("user: "+user.name + user.age+"  updatedUser: "+updatedUser.name + updatedUser.age);
+*/
+function logAll(...args) {
+    alert("Received: "+args);
+}
+// logAll("Apple", "Banana", "Lemon", "Pineapple");
+
+function sumNumbers(multiplier, ...nums) {
+    const sum = nums.reduce((acc, val) => acc+val,0);
+    return multiplier * sum;
+}
+// const total = sumNumbers(2, 1,2,3,4);
+alert("Multiplied and summed values would be: "+total);
+</script>
+</body>
+</html>

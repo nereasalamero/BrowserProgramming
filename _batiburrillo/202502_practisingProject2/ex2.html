@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      .yellow {
+        color:yellow;
+      }
+    </style>
+    <script>
+      /*
+      most common way to handle elements in html:
+      - document.getElementById (on elemenet, based on id)
+      - document.getElementsByTagName
+      - document.getElementsByClassName
+      - document.querySelector, querySelectorAlla
+      */
+      function changeText() {
+        // point to single element
+        let chap = document.getElementById("myChapter");
+        chap.innerHTML = "My new text";
+      }
+      function changeAllTexts() {
+        const paragraphs = document.getElementsByTagName("p");
+
+        // loop every paragraph in the list
+        for(let i=0; i < paragraphs.length; i++ ) {
+          paragraphs[i].innerHTML = "My <b>new</b> text";
+ //         paragraphs[i].textContent = "My <b>new</b> text";
+        }
+      }
+      function changeYellowsToBlue() {
+        const elem = document.getElementsByClassName("yellow");
+        for(let i=0; i< elem.length; i++) {
+          elem[i].style.color = "blue";
+        }
+      }
+      function changeYToB() {
+        const elem = document.querySelectorAll(".yellow");
+        for(let i=0; i< elem.length; i++) {
+          elem[i].style.color = "blue";
+        }
+      }
+      function changeYToB2() {
+        const elem = document.querySelector(".yellow");
+
+          elem.style.color = "blue";
+
+      }
+    </script>
+  </head>
+  <body>
+    <h2>Heading here</h2>
+    <p id="myChapter">here is example text</p>
+    <p class="yellow">here is example text</p>
+    <p >here is example text</p>
+    <p >here is example text</p>
+    <p  class="yellow">here is example text</p>
+    <h3  class="yellow">smaller title</h3>
+    <button onclick="changeText()">Change the text</button>
+    <button onclick="changeAllTexts()">Change all the texts</button>
+    <button onclick="changeYellowsToBlue()">Change all yellow classes to blue</button>
+    <button onclick="changeYToB()">Change all yellow classes to blue</button>
+    <button onclick="changeYToB2()">Change first yellow class to blue</button>
+  </body>
+</html>

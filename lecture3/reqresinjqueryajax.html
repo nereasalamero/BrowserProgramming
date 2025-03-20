@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>jQuery AJAX call to reqres.in</title>
+<!-- jQuery (CDN) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Bootstrap JS (CDN) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Bootstrap CSS (CDN) -->
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+  />
+  <script>
+    $(document).ready(function() {
+
+      // Option 1: using jquery AJAX
+      $.ajax({
+        url: 'https://reqres.in/api/users?page=1',
+        method: 'GET',
+        success: function(response) {
+          // reading number of pages in server
+          const totalPages = response.total_pages;
+
+          // create pagination buttons based on that info
+          buildPaginationButtons(totalPages);
+
+          // by default, get first page of users
+          loadPageData(1);
+        },
+        error: function() {
+          alert('Error when fetching data');
+        }
+      }); // $.ajax
+
+      //
+      function buildPaginationButtons(totalPages) {
+        const paginationContainer = $('#paginationButtons');
+        paginationContainer.empty();
+
+        for(let i=1; i<= totalPages; i++) {
+          const button = $('<button>')
+            .addClass('btn btn-primary me-2')
+            .text(`Page ${i}`)
+            .on('click', function() {
+              loadPageData(i);
+            });
+          paginationContainer.append(button);
+        } // for
+      } // buildPaginationButtons
+
+      // function to load page of data
+      function loadPageData(pageNumber) {
+        $.ajax({
+          // NOTE! We are using backticks here
+        url: `https://reqres.in/api/users?page=${pageNumber}`,
+        method: 'GET',
+        success: function(response) {
+          $("#userTableBody").empty();
+          // now users will be list of users
+          const users = response.data;
+
+          users.forEach(user => {
+            // for each user we will create new table row
+            const newRow = $(`
+            <tr>
+              <td>${user.id}</td>
+              <td><img src="${user.avatar}" alt="Avatar" class="img-thumbnail" style="width:50px;" />
+                </td>
+              <td>${user.first_name}</td>
+              <td>${user.last_name}</td>
+              <td>${user.email}</td>
+            </tr>
+            `);
+            $('#userTableBody').append(newRow);
+          });
+        },
+        error: function() {
+          alert('Error when fetching data');
+        }
+        });
+      } // loadPageData
+
+    }) // document.ready
+  </script>
+  </head>
+  <body class="bg-light">
+
+    <div class="container my-5">
+    </div>
+    <!-- pagination -->
+     <div id="paginationButtons" class="mb-3"></div>
+    <!-- table for displaying users -->
+     <table class="table table-bordered table-striped">
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>Avatar</th>
+        <th>First name</th>
+        <th>Last name</th>
+        <th>Email</th>
+      </tr>
+    </thead>
+    <tbody id="userTableBody">
+      <!-- users will be added here -->
+    </tbody>
+     </table>
+  </body>
+</html>

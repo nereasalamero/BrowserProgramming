@@ -1,0 +1,58 @@
+<html>
+  <head>
+    <meta default="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.9" />
+    <title>Using POST to create a new user</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+
+  $(document).ready(function(){
+
+    // event handler for submit button
+    $("#userForm").submit(function(event) {
+      event.preventDefault(); // preventing the call to action-method
+
+      // create record to be sent to server
+      // this is a javascript structure, that will be converted to JSON before sending
+      let userData = {
+        email: $("#email").val(),
+        first_name: $("#firstName").val(),
+        last_name: $("#lastName").val()
+      };
+
+      // lets make a call to server and send this user record
+      // using POST operation
+      let baseUrl = "https://reqres.in/api/users";
+      fetch(baseUrl, {
+        method: "POST", // because we are creating new user
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(userData) // converting javascript to json
+      })
+      .then(response => response.json())
+      .then(data => {
+        $("#response").text("User created: "+ JSON.stringify(data));
+      })
+      .catch(error => $("#response").text("Error: " + error ));
+
+    });
+
+  }); // document.ready
+    </script>
+  </head>
+  <body>
+    <form id="userForm">
+      <label for="firstName">First Name:</label>
+      <input type="text" id="firstName" required /><br>
+      <label for="lastName">Last Name:</label>
+      <input type="text" id="lastName" required /><br>
+      <label for="email">Email:</label>
+      <input type="email" id="email" required /><br>
+
+      <!-- submit would normally call url mentioned in form's action= -->
+      <button type="submit">Send</button>
+    </form>
+
+    <!-- response from server -->
+    <p id="response"></p>
+  </body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>First example</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+      b {
+        color:red;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <h1>My Books</h1>
+      <ul>
+        <li>Hamlet</li>
+        <li>Adventures of X</li>
+        <li><a href="mailto:keijo.kuosmanen@savonia.fi">address is firstname.lastname at savonia.fi teacher</a></li>
+        <li>Series
+          <ul class="b">
+            <li>Book 1</li>
+            <li>Book 2</li>
+            <li><img src="https://imgs.search.brave.com/0PJWYchL5-EUoKveanLLtZh-gmOEshe6KPb9IJLP05Y/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvMTA3/NjgzMjkxNC9waG90/by9hZHZlbnR1cmUt/dGltZS5qcGc_cz02/MTJ4NjEyJnc9MCZr/PTIwJmM9el9GUG1Z/ZTByRldjNVJ6WmNI/WDVqeWF1RFhLeHcy/dnVubTdzWHQwcTlQ/az0" /></li>
+            <li><img id="img2" src="https://imgs.search.brave.com/0PJWYchL5-EUoKveanLLtZh-gmOEshe6KPb9IJLP05Y/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvMTA3/NjgzMjkxNC9waG90/by9hZHZlbnR1cmUt/dGltZS5qcGc_cz02/MTJ4NjEyJnc9MCZr/PTIwJmM9el9GUG1Z/ZTByRldjNVJ6WmNI/WDVqeWF1RFhLeHcy/dnVubTdzWHQwcTlQ/az0" /></li>
+            <li><a href="https://www.iltalehti.fi/" target="_blank"><img src="https://imgs.search.brave.com/93wlGz43ZxQ0ROqexvHST0wgT2myacsFb3lDLNgXiCw/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTU3/MTkxOTU2L3Bob3Rv/L2Jyb3duLWhvcnNl/LmpwZz9zPTYxMng2/MTImdz0wJms9MjAm/Yz0tQTI3NzFqaGxw/ams5Wk1mMUczUS1x/RUhzODlEZ05CTTQ4/bXowX3hlNmdJPQ" /></a></li>
+            <li>Book 3 <del>Rev 1</del><ins> later revision</ins></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <div>
+      <h2>Authors</h2>
+      <ol>
+        <li class="myblue">Shakespeare</li>
+        <li>Irving John</li>
+        <li>Einstein E=mc<sup>2</sup></li> See list <sub>2</sub>
+      </ol>
+    </div>
+    <div>
+      <h2 class="myblue">Topics</h2>
+      <dl>
+ <!-- This is comment that browers skips
+        -->       
+        <dt>Adventure</dt>
+        <dd><b>Contents</b> is <b style="color:blue;">about</b> <i>having</i> fun 
+          or <strong>extraordinary</strong> events</dd>
+
+        <dt>Document</dt>
+        <dd>real life</dd>
+      </dl>
+    </div>
+
+    <div>
+      <table border="1">
+        <thead>
+          <colgroup>
+            <col style="background-color:yellow">
+            <col style="background-color:green">
+
+          </colgroup>
+        </thead>
+        <tbody>
+          <tr>
+            <th>Number</th>
+            <th>Book</th>
+            <th colspan="2">Authors</th>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>Book 1</td>
+            <td class="myblue">Steinbeck</td>
+            <td>Irving</td>
+          </tr>
+          <tr>
+            <td rowspan="2">2</td>
+            <td>Book 2</td>
+            <td>Steinbeck</td>
+            <td>Hammer</td>
+          </tr>
+          <tr>
+
+            <td>Book 2_1</td>
+            <td>Steinbeck</td>
+            <td>Hammer</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p>
+      This      is a paragraph.  kahdsf lkajsdhflk jasdlkfh
+      a,j sdhflkjahs dklfj haksdf
+      kjh lkjh lkjhkjh lkjhkj
+      jh kljh lkjh lkjhkj<br />
+       kjhkl &lt; this is included &gt; jhlkjhk
+       jh kjh kljhklj
+       lkjh &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;ljkalksjdhf kaj dhs flkjha slkdjfh lkajsdf
+       kja lskjdhf lkja sdkfjh alkjshdf 
+       kjh lkkjh 
+    </p>
+  </body>
+</html>
