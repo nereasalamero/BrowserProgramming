@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Room Management App</title>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+
+    <body>
+        <h1>Room Management</h1>
+
+        <input type="text" id="search" placeholder="Search for rooms..." />
+        <button id="addRoomButton">Add Room</button>
+        
+        <!-- Room details -->
+        <div id="roomList"></div>
+        <div id="roomForm" style="display:none;">
+            <input type="text" id="roomName" placeholder="Room Name" required />
+            <button id="submitRoomButton">Submit</button>
+            <button id="cancelRoomButton">Cancel</button>
+        </div>
+
+        <!-- Sensor modal -->
+        <!--<div id="sensorModal" class="modal hidden">
+            <div class="modal-content">
+                <span class="close-sensor">&times;</span>
+                <h2>Sensor Details</h2>
+                <form id="sensorForm">
+                    <input type="text" id="sensorName" placeholder="Sensor Name" required />
+                    <input type="number" id="sensorValue" placeholder="Sensor Value" required />
+                    <button type="submit">Add Sensor</button>
+                </form>
+
+                <div id="measurements" class="measurements">
+                    <h3>Measurements</h3>
+                    <ul id="measurementList"></ul>
+                    <form id="measurementForm">
+                        <input type="text" id="measurementName" placeholder="Measurement Name" required />
+                        <input type="number" id="measurementValue" placeholder="Measurement Value" required />
+                        <button type="submit">Add Measurement</button>
+                    </form> 
+                </div>
+                <button id="deleteRoom">Delete room </button>
+            </div>
+        </div> -->
+
+        <!-- Sensor info -->
+        <div id="sensor-form" style="display:none;">
+            <input type="text" id="sensor-name" placeholder="Sensor Name">
+            <button id="submit-sensor">Add Sensor</button>
+        </div>
+
+        <script src="script.js"></script>
+    </body>
+</html>

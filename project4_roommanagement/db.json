@@ -1,0 +1,16 @@
+{
+  "rooms": [
+    {
+      "id": "02aa",
+      "name": "Living room",
+      "sensors": []
+    },
+    {
+      "id": "8ea4",
+      "name": "Kitchen",
+      "sensors": []
+    }
+  ],
+  "sensors": [],
+  "measurements": []
+}

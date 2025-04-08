@@ -1,0 +1,61 @@
+<!-- 
+    Title:          Project 4. Room Management Application
+    Author:         Nerea Salamero Labara
+    Date:           2025-04-01
+    File:           index.html
+    Subject:        Browser Programming
+    Description:    You are tasked with building a Room Management Application where users can
+                    add, view, and select rooms. The application will consist of a frontend
+                    (HTML, CSS, JavaScript) and a backend (using json-server to simulate a REST
+                    API). This is an individual project, and your understanding of the code will
+                    be thoroughly evaluated by the teacher through detailed questions.
+-->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Room Management Application</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <header>
+            <h1>Room Management</h1>
+        </header>
+
+        <!-- Room details -->
+        <form id="roomForm">
+            <input type="text" id="roomName" placeholder="Room Name" required />
+            <br> <br>
+            <textarea id="description" name="description" placeholder="Description" required></textarea>
+            <br> <br>
+            <button type="submit">Add Room</button>
+        </form>
+
+        <div id="roomList" class="room-list"></div>
+
+        <!-- Sensor modal -->
+        <div id="sensorModal" class="modal hidden">
+            <div class="modal-content">
+                <span class="close-sensor">&times;</span>
+                <h2>Sensors for <span id="modalRoomName"></span></h2>
+                <ul id="sensorList"></ul>
+                <form id="sensorForm">
+                    <input type="text" id="SensorType" placeholder="Sensor Type" required />
+                    <button type="submit">Add sensor</button>
+                </form>
+
+                <div id="measurementsSection">
+                    <h3>Measurements</h3>
+                    <ul id="measurementList"></ul>
+                    <form id="measurementForm">
+                        <input type="number" step="any" id="measurementValue" placeholder="Value" required />
+                        <button type="submit">Add Measurement</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <script src="script.js"></script>
+    </body>
+</html>

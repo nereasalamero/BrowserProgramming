@@ -1,0 +1,91 @@
+{
+  "rooms": [
+    {
+      "id": "1",
+      "name": "Living Room"
+    },
+    {
+      "id": "2",
+      "name": "Bedroom"
+    },
+    {
+      "id": "a676",
+      "name": "a"
+    },
+    {
+      "id": "9e1a",
+      "name": "A1"
+    },
+    {
+      "id": "ead3",
+      "name": "A1"
+    }
+  ],
+  "sensors": [
+    {
+      "id": "1",
+      "name": "Temperature Sensor",
+      "room_id": 1,
+      "type": "temperature"
+    },
+    {
+      "id": "2",
+      "name": "Humidity Sensor",
+      "room_id": 1,
+      "type": "humidity"
+    },
+    {
+      "id": "3",
+      "name": "Light Sensor",
+      "room_id": 2,
+      "type": "light"
+    },
+    {
+      "id": "4",
+      "name": "Motion Sensor",
+      "room_id": 2,
+      "type": "motion"
+    }
+  ],
+  "measurements": [
+    {
+      "id": "1",
+      "sensor_id": 1,
+      "value": 22.5,
+      "timestamp": "2023-10-01T10:00:00Z"
+    },
+    {
+      "id": "2",
+      "sensor_id": 2,
+      "value": 45,
+      "timestamp": "2023-10-01T10:05:00Z"
+    },
+    {
+      "id": "3",
+      "sensor_id": 3,
+      "value": 300,
+      "timestamp": "2023-10-01T10:10:00Z"
+    },
+    {
+      "id": "4",
+      "sensor_id": 4,
+      "value": 1,
+      "timestamp": "2023-10-01T10:15:00Z"
+    },
+    {
+      "id": "cacb",
+      "value": 4,
+      "sensorId": "3"
+    },
+    {
+      "id": "c9de",
+      "value": 3,
+      "sensorId": "4"
+    },
+    {
+      "id": "4d72",
+      "value": 38,
+      "sensorId": "3"
+    }
+  ]
+}
