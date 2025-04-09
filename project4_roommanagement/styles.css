@@ -26,22 +26,33 @@ button {
     margin-left: 5px;
 }
   
-#room-list {
+#roomList {
+    margin-top: 20px;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
     gap: 15px;
+    justify-items: center;
+    align-items: center;
 }
   
 .room {
     border: 1px solid #ccc;
+    background-color:cadetblue;
     padding: 10px;
     text-align: center;
     position: relative;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: transform 0.2s;
 }
-/*
+
 #roomForm {
     margin-top: 20px;
-}*/
+}
+
+#sensorForm {
+    margin-top: 20px;
+}
   
 /* Modal */
 .modal {

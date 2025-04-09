@@ -14,23 +14,49 @@
         <button id="addRoomButton">Add Room</button>
         
         <!-- Room details -->
-        <div id="roomList"></div>
         <div id="roomForm" style="display:none;">
             <input type="text" id="roomName" placeholder="Room Name" required />
             <button id="submitRoomButton">Submit</button>
             <button id="cancelRoomButton">Cancel</button>
         </div>
+        <div id="roomList"></div>
 
-        <!-- Sensor modal -->
-        <!--<div id="sensorModal" class="modal hidden">
+        <!-- Sensor details -->
+        <div id="sensorSection" style="display:none;">   
+            <h2>Sensors for Room: <span id="currentRoomName"></span></h2>
+            <button id="addSensorButton">Add Sensor</button>
+            <button id="closeSensorButton">Close</button>
+            <div id="sensorForm" style="display:none;">
+                <input type="text" id="sensorName" placeholder="Sensor Name" required />
+                <button id="submitSensorButton">Submit</button>
+                <button id="cancelSensorButton">Cancel</button>
+            </div>
+            <div id="sensorList"></div>
+        </div>
+    <!--
+        <div id="sensorSection" class="modal" style="display:none;">
+            <div class="modal-content">   
+                <h2>Sensors for Room: <span id="currentRoomName"></span></h2>
+                <button id="addSensorButton">Add Sensor</button>
+                <button id="closeSensorButton">Close</button>
+                <div id="sensorForm" style="display:none;">
+                    <input type="text" id="sensorName" placeholder="Sensor Name" required />
+                    <button id="submitSensorButton">Submit</button>
+                    <button id="cancelSensorButton">Cancel</button>
+                </div>
+                <div id="sensorList"></div>
+            </div>
+        </div>
+    -->
+
+
+        <!-- <div id="sensorModal" class="modal hidden">
             <div class="modal-content">
                 <span class="close-sensor">&times;</span>
                 <h2>Sensor Details</h2>
-                <form id="sensorForm">
-                    <input type="text" id="sensorName" placeholder="Sensor Name" required />
-                    <input type="number" id="sensorValue" placeholder="Sensor Value" required />
-                    <button type="submit">Add Sensor</button>
-                </form>
+                <div id="sensorList"></div>
+                <input type="text" id="sensorName" placeholder="Sensor Name" required />
+                <button id="addSensorButton">Add Sensor</button>
 
                 <div id="measurements" class="measurements">
                     <h3>Measurements</h3>
