@@ -1,43 +1,29 @@
 {
   "rooms": [
     {
-      "name": "Living room",
-      "id": "ceee"
+      "id": "8c0f",
+      "name": "Bedroom",
+      "sensors": []
     },
     {
+      "name": "Living room",
+      "id": "4f39"
+    },
+    {
+      "id": "ab5a",
       "name": "Kitchen",
-      "id": "fc89"
+      "sensors": []
     }
   ],
   "sensors": [
     {
-      "id": "eb94",
-      "name": "Humidity",
-      "roomId": "ceee",
-      "measurements": []
+      "name": "Temperature",
+      "id": "52c5"
     },
     {
-      "id": "1a85",
+      "id": "6b9b",
       "name": "Humidity",
-      "roomId": "ceee",
-      "measurements": []
-    },
-    {
-      "id": "84f8",
-      "name": "Humidity",
-      "roomId": "ceee",
-      "measurements": []
-    },
-    {
-      "id": "ee10",
-      "name": "Humidity",
-      "roomId": "ceee",
-      "measurements": []
-    },
-    {
-      "id": "d4cd",
-      "name": "Humidity",
-      "roomId": "ceee",
+      "roomId": "8c0f",
       "measurements": []
     }
   ],

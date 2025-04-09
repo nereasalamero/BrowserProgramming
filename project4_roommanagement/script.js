@@ -43,10 +43,8 @@ function loadRooms(searchTerm = '') {
                     roomItem.className = 'room';    // Create a new div for each room
                     roomItem.textContent = room.name;       // Set the room name as the text content
                     roomItem.innerHTML = `
-                        <span>${room.name}</span>
-                        <button onclick="editRoom('${room.id}', '${room.name}')">Rename</button>
-                        <button onclick="deleteRoom('${room.id}')">Delete</button>
-                    `; // Create a new div for each room with edit and delete buttons
+                        <p>${room.name}</p>
+                    `; // Create a new div for each room 
                     roomItem.addEventListener('click', () => {
                         selectRoom(room);          // Load sensors for the selected room
                     });
@@ -56,21 +54,6 @@ function loadRooms(searchTerm = '') {
         .catch(error => console.error('Error fetching rooms:', error));       // Handle errors
 }
 
-document.querySelectorAll('.editRoomButton').forEach(button => {
-    button.addEventListener('click', () => {
-        const roomId = button.dataset.roomId;       // Get the room ID from the button's data attribute
-        const roomName = button.dataset.roomName;       // Get the room name from the button's data attribute
-        editRoom(roomId, roomName);       // Call the editRoom function with the room ID and name
-    });
-});
-
-
-document.querySelectorAll('.deleteRoomButton').forEach(button => {
-    button.addEventListener('click', () => {
-        const roomId = button.dataset.roomId;       // Get the room ID from the button's data attribute
-        deleteRoom(roomId);       // Call the editRoom function with the room ID and name
-    });
-});
 
 
 // Search field functionality
@@ -142,13 +125,40 @@ function selectRoom(room) {
     console.log(`Selected room: ${room.name}`); // Log the selected room
 
     currentRoomId = room.id;       // Store the ID of the selected room
+
+    const editRoomButton = document.getElementById("editRoomButton");
+    const deleteRoomButton = document.getElementById("deleteRoomButton");
+
+    if (editRoomButton && deleteRoomButton) {
+        editRoomButton.onclick = () => editRoom(room.id, room.name);
+        deleteRoomButton.onclick = () => deleteRoom(room.id);
+    } else {
+        console.error("Edit or Delete button not found");
+    }
+
     const sensorSection = document.getElementById('sensorSection');       // Get the sensor section element
     const currentRoomName = document.getElementById('currentRoomName');       // Get the current room name element
     currentRoomName.innerText = room.name;       // Display the current room name
     sensorSection.style.display = 'block';       // Show the sensor section
 
+    //  showEditDeleteOptions(room); // Call a function to show edit/delete options
     loadSensors(room.id);       // Load sensors for the selected room
 }
+
+
+// Function to show edit and delete options (you can implement this as needed)
+function showEditDeleteOptions(room) {
+    // Display a modal with edit and delete buttons
+    const editRoomButton = document.getElementById('editRoomButton');
+    const deleteRoomButton = document.getElementById('deleteRoomButton');
+
+    editRoomButton.onclick = () => editRoom(room.id, room.name);
+    deleteRoomButton.onclick = () => deleteRoom(room.id);
+
+    // Show the modal or section containing these buttons
+    document.getElementById('editDeleteModal').style.display = 'block'; // Example modal
+}
+
 
 /***********************************************
  * 
@@ -158,7 +168,7 @@ function selectRoom(room) {
 
 // Function to fetch and display sensors for a room
 function loadSensors(roomId) {
-    fetch(`${API_URL}/rooms/${roomId}/sensors`)       // Fetch sensors for the selected room from the server
+    fetch(`${API_URL}/sensors?roomId=${roomId}`)       // Fetch sensors for the selected room from the server
         .then(response => response.json())
         .then(sensors => {
             console.log('Sensors fetched: ', sensors);       // Log the response data
@@ -174,7 +184,7 @@ function loadSensors(roomId) {
                     <button onclick="editSensor('${sensor.id}', '${sensor.name}')">Rename</button>
                     <button onclick="deleteSensor('${sensor.id}')">Delete</button>
                 `; // Create a new div for each sensor with edit and delete buttons
-                /* sensorItem.addEventListener('click', () => {
+                /*sensorItem.addEventListener('click', () => {
                     selectSensor(sensor);          // Load measurements for the selected sensor
                 });*/
                 sensorList.appendChild(sensorItem);
@@ -248,7 +258,6 @@ function deleteSensor(sensorId) {
 }
 
 // Function to select a sensor and load its measurements
-/*
 function selectSensor(sensor) {
     console.log(`Selected sensor: ${sensor.name}`); // Log the selected sensor
 
@@ -260,7 +269,6 @@ function selectSensor(sensor) {
 
     loadMeasurements(sensor.id);       // Load measurements for the selected sensor
 }
-*/
 
 
 /***********************************************

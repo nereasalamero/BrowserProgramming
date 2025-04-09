@@ -22,8 +22,10 @@
         <div id="roomList"></div>
 
         <!-- Sensor details -->
-    <!--    <div id="sensorSection" style="display:none;">   
-            <h2>Sensors for Room: <span id="currentRoomName"></span></h2>
+        <!--<div id="sensorSection" style="display:none;">   
+            <h2>Sensors for <span id="currentRoomName"></span>:</h2>
+            <button id="editRoomButton">Rename</button>
+            <button id="deleteRoomButton">Delete</button>
             <button id="addSensorButton">Add Sensor</button>
             <button id="closeSensorButton">Close</button>
             <div id="sensorForm" style="display:none;">
@@ -31,12 +33,15 @@
                 <button id="submitSensorButton">Submit</button>
                 <button id="cancelSensorButton">Cancel</button>
             </div>
-            <div id="sensorList"></div>
-        </div>
-    -->
+            <ul id="sensorList"></ul>
+        </div>-->
+    
         <div id="sensorSection" class="modal" style="display:none;">
-            <div class="modal-content">   
-                <h2>Sensors for Room: <span id="currentRoomName"></span></h2>
+            <div class="modal-content">
+                <h2>Sensors for <span id="currentRoomName"></span>:</h2>
+                
+                <button id="editRoomButton">Rename</button>
+                <button id="deleteRoomButton">Delete</button>
                 <button id="addSensorButton">Add Sensor</button>
                 <button id="closeSensorButton">Close</button>
                 <div id="sensorForm" style="display:none;">
@@ -44,7 +49,7 @@
                     <button id="submitSensorButton">Submit</button>
                     <button id="cancelSensorButton">Cancel</button>
                 </div>
-                <div id="sensorList"></div>
+                <ul id="sensorList"></ul>
             </div>
         </div>
     
