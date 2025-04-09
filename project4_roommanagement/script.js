@@ -166,7 +166,7 @@ function loadSensors(roomId) {
             sensorList.innerHTML = '';       // Clear the sensor list
 
             sensors.forEach(sensor => {
-                const sensorItem = document.createElement('div');
+                const sensorItem = document.createElement('li');
                 sensorItem.className = 'sensor';       // Create a new div for each sensor
                 sensorItem.textContent = sensor.name;       // Set the sensor name as the text content
                 sensorItem.innerHTML = `
@@ -228,7 +228,7 @@ document.getElementById("submitSensorButton").addEventListener("click", () => {
 function editSensor(id, name) {
     const newName = prompt("Enter new sensor name:", name);       // Prompt the user for a new room name
     if (newName) {
-        fetch(`${API_URL}/sensor/${id}`, {
+        fetch(`${API_URL}/sensors/${id}`, {
             method: 'PUT',        // Send a PUT request to update the room name
             headers: {
                 'Content-Type': 'application/json'
