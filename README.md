@@ -38,5 +38,5 @@
 **Schedule:** Weeks 10-14<br>
 **Points:** 40%<br>
 **Description:** A dashboard fetching and visualizing real IoT data.
-- Weeks 10-12: Guided coding with:
+- Weeks 10-12: Guided coding
 - Weeks 13-14: Final individual project with IoT data interaction.

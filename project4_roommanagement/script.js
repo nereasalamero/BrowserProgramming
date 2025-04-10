@@ -67,7 +67,7 @@ document.getElementById("addRoomButton").addEventListener("click", () => {
 });
 
 // Cancel button functionality
-document.getElementById("cancelRoomButton").addEventListener("click", () => {
+document.getElementById("closeRoomButton").addEventListener("click", () => {
     document.getElementById('roomName').value = '';                   // Clear the input field
     document.getElementById('roomForm').style.display = 'none';       // Hide the room form
 });
@@ -146,20 +146,6 @@ function selectRoom(room) {
 }
 
 
-// Function to show edit and delete options (you can implement this as needed)
-function showEditDeleteOptions(room) {
-    // Display a modal with edit and delete buttons
-    const editRoomButton = document.getElementById('editRoomButton');
-    const deleteRoomButton = document.getElementById('deleteRoomButton');
-
-    editRoomButton.onclick = () => editRoom(room.id, room.name);
-    deleteRoomButton.onclick = () => deleteRoom(room.id);
-
-    // Show the modal or section containing these buttons
-    document.getElementById('editDeleteModal').style.display = 'block'; // Example modal
-}
-
-
 /***********************************************
  * 
  *              SENSOR FUNCTIONALITIES
@@ -184,9 +170,9 @@ function loadSensors(roomId) {
                     <button onclick="editSensor('${sensor.id}', '${sensor.name}')">Rename</button>
                     <button onclick="deleteSensor('${sensor.id}')">Delete</button>
                 `; // Create a new div for each sensor with edit and delete buttons
-                /*sensorItem.addEventListener('click', () => {
+                sensorItem.addEventListener('click', () => {
                     selectSensor(sensor);          // Load measurements for the selected sensor
-                });*/
+                });
                 sensorList.appendChild(sensorItem);
             });
         })
@@ -278,8 +264,117 @@ function selectSensor(sensor) {
  ***********************************************/
 // Measurements: id, timestamp. value, comment
 // Function to fetch and display measurements for a sensor
+function loadMeasurements(sensorId) {
+    fetch(`${API_URL}/measurements?sensorsId=${sensorId}`)       // Fetch sensors for the selected room from the server
+        .then(response => response.json())
+        .then(measurements => {
+            console.log('Sensors fetched: ', measurements);       // Log the response data
+            const measurementList = document.getElementById('measurementList');
+            measurementList.innerHTML = '';       // Clear the sensor list
+
+            measurements.forEach(measurement => {
+                const measurementItem = document.createElement('li');
+                measurementItem.className = 'measurement';       // Create a new div for each sensor
+                measurementItem.textContent = measurement.name;       // Set the sensor name as the text content
+                measurementItem.innerHTML = `
+                    <span>${measurement.name}</span>
+                    <button onclick="editMeasurement('${measurement.id}', '${measurement.name}')">Rename</button>
+                    <button onclick="deleteMeasurement('${measurement.id}')">Delete</button>
+                `; // Create a new div for each sensor with edit and delete buttons
+                measurementList.appendChild(measurementItem);
+            });
+        })
+        .catch(error => console.error('Error fetching sensors:', error));       // Handle errors
+}
+
+// Add button functionality
+document.getElementById("addMeasurementButton").addEventListener("click", () => {
+    document.getElementById('measurementForm').style.display = 'block';       // Toggle the visibility of the room form
+});
+
+// Close button functionality
+document.getElementById("closeMeasurementButton").addEventListener("click", () => {
+    document.getElementById('measurementForm').style.display = 'none';       // Hide the room form
+    document.getElementById('measurementSection').style.display = 'none';       // Hide the room form
+});
+
+// Cancel button functionality
+document.getElementById("cancelMeasurementButton").addEventListener("click", () => {
+    document.getElementById('measurementName').value = '';                   // Clear the input field
+    document.getElementById('measurementValue').value = '';                   // Clear the input field
+    document.getElementById('measurementForm').style.display = 'none';       // Hide the room form
+});
+
+// Submit button functionality
+document.getElementById("submitMeasurementButton").addEventListener("click", () => {
+    const measurementValue = document.getElementById('measurementValue').value;       // Get the sensor name from the input field
+    document.getElementById('measurementValue').value = '';                   // Clear the input field
+    const measurementDescription = document.getElementById('measurementDescription').value;       // Get the sensor name from the input field
+    document.getElementById('measurementDescription').value = '';                   // Clear the input field
+    document.getElementById('measurementForm').style.display = 'none';       // Hide the sensor form
+
+    if (measurementValue) {
+        fetch(`${API_URL}/measurements`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ name: measurementValue + " " + measurementDescription })       // Send the new sensor data to the server
+        })
+        .then(data => {
+            console.log('Measurement added: ', data);       // Log the response data
+            document.getElementById('measurementValue').value = '';                   // Clear the input field
+            document.getElementById('measurementDescription').value = '';                   // Clear the input field
+            document.getElementById('measurementForm').style.display = 'none';       // Hide the sensor form
+            loadMeasurements(currentSensorId);        // Refresh the sensor list
+        })
+        .catch(error => console.error('Error adding sensor:', error));       // Handle errors
+    }
+});
 
 
+document.getElementById('filterMeasurement').addEventListener('input', (event) => {
+    const filterValue = event.target.value.toLowerCase();       // Get the filter value from the input field
+    const measurementList = document.getElementById('measurementList');       // Get the measurement list element
+    const allMeasurements = Array.from(measurementList.children);       // Get all measurements
+
+    allMeasurements.forEach(measurement => {
+        const measurementName = measurement.querySelector('span').textContent.toLowerCase();       // Get the measurement name from the span element
+        if (measurementName.includes(filterValue)) {
+            measurement.style.display = 'block';       // Show the measurement if it matches the filter value
+        } else {
+            measurement.style.display = 'none';       // Hide the measurement if it doesn't match the filter value
+        }
+    });
+});
+
+
+// Edit sensor function
+function editMeasurement(id, value) {
+    const newValue = prompt("Enter new value:", value);       // Prompt the user for a new room name
+    const newDescription = prompt("Enter new description:", description);       // Prompt the user for a new room name
+
+    if (newValue) {
+        fetch(`${API_URL}/measurements/${id}`, {
+            method: 'PUT',        // Send a PUT request to update the room name
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ value: newValue, description: newDescription })       // Send the updated room data to the server
+        })
+        .then(() => loadMeasurements(currentSensorId))        // Reload the lit of rooms
+        .catch(error => console.error('Error modifying measurement:', error));
+    }
+}
+
+// Delete room function
+function deleteMeasurement(measurementId) {
+    fetch(`${API_URL}/measurements/${measurementId}`, {
+        method: 'DELETE'        // Send a DELETE request to the server to delete the room
+    })
+    .then(() => loadMeasurements(currentSensorId))        // Reload the lit of rooms
+    .catch(error => console.error('Error modifying measurement:', error));
+}
 
 
 /***********************************************

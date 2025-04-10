@@ -6,24 +6,31 @@
       "sensors": []
     },
     {
-      "name": "Living room",
-      "id": "4f39"
-    },
-    {
       "id": "ab5a",
       "name": "Kitchen",
       "sensors": []
+    },
+    {
+      "id": "3fb0",
+      "name": "Bathroom",
+      "sensors": []
+    },
+    {
+      "name": "Living room",
+      "id": "eea4"
     }
   ],
   "sensors": [
     {
-      "name": "Temperature",
-      "id": "52c5"
+      "id": "dbc0",
+      "name": "Humidity",
+      "roomId": null,
+      "measurements": []
     },
     {
-      "id": "6b9b",
-      "name": "Humidity",
-      "roomId": "8c0f",
+      "id": "939f",
+      "name": "Temperature",
+      "roomId": "ab5a",
       "measurements": []
     }
   ],
