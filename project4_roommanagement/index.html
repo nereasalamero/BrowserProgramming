@@ -19,7 +19,9 @@
             <button id="submitRoomButton">Submit</button>
             <button id="closeRoomButton">Cancel</button>
         </div>
-        <div id="roomList"></div>
+        <div id="roomList">
+                <!-- Rooms will be dynamically added here -->
+        </div>
 
         <!-- Sensor details -->
         <div id="sensorSection" class="modal" style="display:none;">
@@ -34,7 +36,9 @@
                     <button id="submitSensorButton">Submit</button>
                     <button id="cancelSensorButton">Cancel</button>
                 </div>
-                <ul id="sensorList"></ul>
+                <ul id="sensorList">
+                    <!-- Sensors will be dynamically added here -->
+                </ul> 
             </div>
         </div>
 
@@ -51,7 +55,15 @@
                     <button id="submitMeasurementButton">Submit</button>
                     <button id="cancelMeasurementButton">Cancel</button>
                 </div>
-                <ul id="measurementList"></ul>
+                <table id="measurementTable">
+                    <tr>
+                        <th>ID</th>
+                        <th>Timestamp</th>
+                        <th>Value</th>
+                        <th>Description</th>
+                    </tr>
+                    <!-- Measurement rows will be dynamically added here -->
+                  </table>
             </div>
         </div>
         

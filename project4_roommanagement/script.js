@@ -269,19 +269,29 @@ function loadMeasurements(sensorId) {
         .then(response => response.json())
         .then(measurements => {
             console.log('Sensors fetched: ', measurements);       // Log the response data
-            const measurementList = document.getElementById('measurementList');
-            measurementList.innerHTML = '';       // Clear the sensor list
+            const measurementTable = document.getElementById('measurementTable');
+            measurementTable.innerHTML = `
+                <tr>
+                    <th>ID</th>
+                    <th>Timestamp</th>
+                    <th>Value</th>
+                    <th>Description</th>
+                </tr>
+                `;       // Clear the measurement list
 
             measurements.forEach(measurement => {
-                const measurementItem = document.createElement('li');
-                measurementItem.className = 'measurement';       // Create a new div for each sensor
+                const measurementItem = document.createElement('tr');
+                measurementItem.className = 'measurement';       // Create a new row for each sensor
                 measurementItem.textContent = measurement.name;       // Set the sensor name as the text content
                 measurementItem.innerHTML = `
-                    <span>${measurement.name}</span>
-                    <button onclick="editMeasurement('${measurement.id}', '${measurement.name}')">Rename</button>
+                    <td>${measurement.id}</td>
+                    <td>${measurement.timestamp}</td>
+                    <td>${measurement.value}</td>
+                    <td>${measurement.comment}</td>
+                    <button onclick="editMeasurement('${measurement.value}', '${measurement.name}')">Rename</button>
                     <button onclick="deleteMeasurement('${measurement.id}')">Delete</button>
                 `; // Create a new div for each sensor with edit and delete buttons
-                measurementList.appendChild(measurementItem);
+                measurementTable.appendChild(measurementItem);
             });
         })
         .catch(error => console.error('Error fetching sensors:', error));       // Handle errors

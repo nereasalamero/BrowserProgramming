@@ -6,11 +6,6 @@
       "sensors": []
     },
     {
-      "id": "ab5a",
-      "name": "Kitchen",
-      "sensors": []
-    },
-    {
       "id": "3fb0",
       "name": "Bathroom",
       "sensors": []
@@ -18,6 +13,11 @@
     {
       "name": "Living room",
       "id": "eea4"
+    },
+    {
+      "id": "da5f",
+      "name": "Kitchen",
+      "sensors": []
     }
   ],
   "sensors": [
@@ -30,9 +30,14 @@
     {
       "id": "939f",
       "name": "Temperature",
-      "roomId": "ab5a",
+      "roomId": null,
       "measurements": []
     }
   ],
-  "measurements": []
+  "measurements": [
+    {
+      "id": "4a79",
+      "name": "22 2e"
+    }
+  ]
 }
