@@ -17,7 +17,7 @@
         <div id="roomForm" style="display:none;">
             <input type="text" id="roomName" placeholder="Room Name" required />
             <button id="submitRoomButton">Submit</button>
-            <button id="closeRoomButton">Cancel</button>
+            <button id="cancelRoomButton">Cancel</button>
         </div>
         <div id="roomList">
                 <!-- Rooms will be dynamically added here -->
@@ -50,6 +50,7 @@
                 <button id="closeMeasurementButton">Close</button>
                 <input type="text" id="filterMeasurement" placeholder="Select the measurements..." />
                 <div id="measurementForm" style="display:none;">
+                    <input type="hidden" id="measurementId" />
                     <input type="number" id="measurementValue" placeholder="Measurement Value" required />
                     <input type="text" id="measurementDescription" placeholder="Measurement Description" />
                     <button id="submitMeasurementButton">Submit</button>

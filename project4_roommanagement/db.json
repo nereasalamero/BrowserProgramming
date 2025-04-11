@@ -1,69 +1,36 @@
 {
   "rooms": [
     {
-      "id": "eb2f",
+      "id": "5795",
       "name": "Living room",
       "sensors": [
-        "e24e"
-      ]
-    },
-    {
-      "id": "b24b",
-      "name": "Kitchen",
-      "sensors": [
-        "c719"
-      ]
-    },
-    {
-      "id": "1521",
-      "name": "Bedroom",
-      "sensors": [
-        "3ab6"
+        "dde4"
       ]
     }
   ],
   "sensors": [
     {
-      "id": "e24e",
-      "name": "Humidity",
-      "roomId": "eb2f",
-      "measurements": [
-        null
-      ]
-    },
-    {
-      "id": "c719",
+      "id": "dde4",
       "name": "Temperature",
-      "roomId": "b24b",
-      "measurements": [
-        null
-      ]
-    },
-    {
-      "id": "3ab6",
-      "name": "Temperature",
-      "roomId": "1521",
+      "roomId": "5795",
       "measurements": [
         null,
         null,
-        null
+        null,
+        "4006",
+        "4006",
+        "4006",
+        "4006"
       ]
     }
   ],
   "measurements": [
     {
-      "id": "9924",
-      "timestamp": "2025-04-11T10:56:02.429Z",
+      "timestamp": "11/4/2025, 15:43:12",
+      "sensorId": "dde4",
       "value": "25",
-      "description": "ll",
-      "sensorsId": "e24e"
-    },
-    {
-      "id": "416f",
-      "timestamp": "2025-04-11T10:56:22.521Z",
-      "value": "25",
-      "description": "ºC",
-      "sensorsId": "c719"
+      "description": "C",
+      "id": "4006"
     }
   ]
 }

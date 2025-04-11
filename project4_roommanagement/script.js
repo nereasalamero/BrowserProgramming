@@ -67,7 +67,7 @@ document.getElementById("addRoomButton").addEventListener("click", () => {
 });
 
 // Cancel button functionality
-document.getElementById("closeRoomButton").addEventListener("click", () => {
+document.getElementById("cancelRoomButton").addEventListener("click", () => {
     document.getElementById('roomName').value = '';                   // Clear the input field
     document.getElementById('roomForm').style.display = 'none';       // Hide the room form
 });
@@ -168,7 +168,7 @@ function loadSensors(roomId) {
                 sensorItem.innerHTML = `
                     <span>${sensor.name}</span>
                     <button onclick="editSensor('${sensor.id}', '${sensor.name}')">Rename</button>
-                    <button onclick="deleteSensor('${sensor.id}')">Delete</button>
+                    <button onclick="deleteSensor('${sensor.id}', '${roomId}')">Delete</button>
                 `; // Create a new div for each sensor with edit and delete buttons
                 sensorItem.addEventListener('click', () => {
                     selectSensor(sensor);          // Load measurements for the selected sensor
@@ -243,23 +243,50 @@ document.getElementById("submitSensorButton").addEventListener("click", () => {
 function editSensor(id, name) {
     const newName = prompt("Enter new sensor name:", name);       // Prompt the user for a new room name
     if (newName) {
-        fetch(`${API_URL}/sensors/${id}`, {
-            method: 'PUT',        // Send a PUT request to update the room name
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ name: newName })       // Send the updated room data to the server
-        })
-        .then(() => loadSensors(currentRoomId));        // Reload the lit of rooms
+        fetch(`${API_URL}/sensors/${id}`)
+            .then(response => response.json())       // Parse the response as JSON
+            .then(sensor => {
+                return fetch(`${API_URL}/sensors/${id}`, {
+                    method: 'PUT',        // Send a PUT request to update the room name
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ 
+                        ...sensor,       
+                        name: newName
+                    })       // Send the updated room data to the server
+                });
+            })
+            .then(() => loadSensors(currentRoomId))        // Reload the lit of rooms
+            .catch(error => console.error('Error modifying sensor:', error));       // Handle errors
     }
 }
 
 // Delete room function
-function deleteSensor(sensorId) {
-    fetch(`${API_URL}/sensors/${sensorId}`, {
-        method: 'DELETE'        // Send a DELETE request to the server to delete the room
-    })
-    .then(() => loadSensors(currentRoomId));        // Reload the lit of rooms
+function deleteSensor(sensorId, roomId) {
+    fetch(`${API_URL}/rooms/${roomId}`)
+        .then(response => response.json())       // Parse the response as JSON
+        .then(room => {
+            const updatedSensors = room.sensors.filter(sensor => sensor !== sensorId);       // Create a new array with the existing sensors and the new sensor ID
+            return fetch(`${API_URL}/rooms/${roomId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    ...room,       // Spread the existing room data
+                    sensors: updatedSensors   // Actualizar el array de sensores
+                })       // Send the updated room data to the server
+            })
+        })
+        .then(() => {
+            // Delete the sensor from the server
+            return fetch(`${API_URL}/sensors/${sensorId}`, {
+                method: 'DELETE'        // Send a DELETE request to the server to delete the room
+            })
+        })
+        .then(() => loadSensors(currentRoomId))        // Reload the lit of rooms
+        .catch(error => console.error('Error deleting sensor:', error));       // Handle errors
 }
 
 // Function to select a sensor and load its measurements
@@ -281,14 +308,41 @@ function selectSensor(sensor) {
  *         MEASUREMENT FUNCTIONALITIES
  * 
  ***********************************************/
-// Measurements: id, timestamp. value, comment
+// Measurements: id, timestamp, value, description
+
+// Function to open the measurement form.
+function openMeasurementForm(measurement = null) {
+    const measurementForm = document.getElementById('measurementForm');
+    const submitMeasurementButton = document.getElementById('submitMeasurementButton');
+    const measurementId = document.getElementById('measurementId');
+    const measurementValue = document.getElementById('measurementValue');
+    const measurementDescription = document.getElementById('measurementDescription');
+    
+    if (measurement) {
+        // Editing existing measurement
+        measurementId.value = measurement.id;
+        measurementValue.value = measurement.value;
+        measurementDescription.value = measurement.description || '';
+        submitMeasurementButton.textContent = 'Update';
+    } else {
+        // Creating new measurement
+        measurementId.value = '';
+        measurementValue.value = '';
+        measurementDescription.value = '';
+        submitMeasurementButton.textContent = 'Create';
+    }
+    
+    measurementForm.style.display = 'block';
+}
+
 // Function to fetch and display measurements for a sensor
 function loadMeasurements(sensorId) {
     fetch(`${API_URL}/measurements?sensorsId=${sensorId}`)       // Fetch sensors for the selected room from the server
         .then(response => response.json())
         .then(measurements => {
-            console.log('Sensors fetched: ', measurements);       // Log the response data
+            console.log('Measurements fetched: ', measurements);       // Log the response data
             const measurementTable = document.getElementById('measurementTable');
+
             measurementTable.innerHTML = `
                 <tr>
                     <th>ID</th>
@@ -296,7 +350,7 @@ function loadMeasurements(sensorId) {
                     <th>Value</th>
                     <th>Description</th>
                 </tr>
-                `;       // Clear the measurement list
+            `;       // Clear the measurement list
 
             measurements.forEach(measurement => {
                 const measurementItem = document.createElement('tr');
@@ -306,19 +360,29 @@ function loadMeasurements(sensorId) {
                     <td>${measurement.id}</td>
                     <td>${measurement.timestamp}</td>
                     <td>${measurement.value}</td>
-                    <td>${measurement.description}</td>
-                    <button onclick="editMeasurement('${measurement.value}', '${measurement.name}')">Rename</button>
-                    <button onclick="deleteMeasurement('${measurement.id}')">Delete</button>
+                    <td>${measurement.description || ''}</td>
+                    <button class="editMeasurement">Rename</button>
+                    <button onclick="deleteMeasurement('${measurement.id}','${sensorId}')">Delete</button>
                 `; // Create a new div for each sensor with edit and delete buttons
+                measurementItem.querySelector('.editMeasurement').addEventListener('click', (e) => {
+                    e.stopPropagation();       // Prevent the click event from bubbling up to the parent element
+                    fetch(`${API_URL}/measurements/${measurement.id}`)       // Fetch the measurement data from the server
+                        .then(response => response.json())
+                        .then(measurement => {
+                            console.log('Measurement fetched: ', measurement);       // Log the response data
+                            openMeasurementForm(measurement);       // Open the measurement form with the fetched data
+                        })
+                        .catch(error => console.error('Error fetching measurement:', error));       // Handle errors
+                });
                 measurementTable.appendChild(measurementItem);
             });
         })
-        .catch(error => console.error('Error fetching sensors:', error));       // Handle errors
+        .catch(error => console.error('Error fetching measurements:', error));       // Handle errors
 }
 
 // Add button functionality
 document.getElementById("addMeasurementButton").addEventListener("click", () => {
-    document.getElementById('measurementForm').style.display = 'block';       // Toggle the visibility of the room form
+    openMeasurementForm();
 });
 
 // Close button functionality
@@ -340,48 +404,70 @@ document.getElementById("submitMeasurementButton").addEventListener("click", () 
     document.getElementById('measurementValue').value = '';                   // Clear the input field
     const measurementDescription = document.getElementById('measurementDescription').value;       // Get the sensor name from the input field
     document.getElementById('measurementDescription').value = '';                   // Clear the input field
-    document.getElementById('measurementForm').style.display = 'none';       // Hide the sensor form
+    const measurementForm = document.getElementById('measurementForm');       // Get the sensor form element
+    measurementForm.style.display = 'none';       // Hide the sensor form
 
-    if (measurementValue && currentSensorId) {
-        // Create a new measurement object
-        fetch(`${API_URL}/measurements`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ 
-                timestamp: new Date().toISOString(),       // Get the current timestamp
-                value: measurementValue,
-                description: measurementDescription,
-                sensorsId: currentSensorId
-            })       // Send the new sensor data to the server
-        })
-        .then(data => {
-            console.log('Measurement added: ', data);       // Log the response data
-            document.getElementById('measurementValue').value = '';                   // Clear the input field
-            document.getElementById('measurementDescription').value = '';                   // Clear the input field
-            document.getElementById('measurementForm').style.display = 'none';       // Hide the sensor form
+    const measurementId = document.getElementById('measurementId').value;
 
-            // Add the sensor to the room's sensor array
-            fetch(`${API_URL}/sensors/${currentSensorId}`)       // Fetch the room data from the server
-                .then(response => response.json())       // Parse the response as JSON
-                .then(sensor => {
-                    const updatedMeasurements = [ ...sensor.measurements, data.id ];       // Create a new array with the existing measurements and the new measurement ID
-                    return fetch(`${API_URL}/sensors/${currentSensorId}`, {
-                        method: 'PUT',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            ...sensor,       // Spread the existing sensor data
-                            measurements: updatedMeasurements   // Actualizar el array de measurements
-                        })       // Send the updated sensor data to the server
-                    });
-                });
-        })
-        .then(() => loadMeasurements(currentSensorId))        // Refresh the sensor list
-        .catch(error => console.error('Error adding measurement:', error));       // Handle errors
+    if (!measurementValue || !currentSensorId) return;
+    
+    const measurementData = {
+        timestamp: new Date().toLocaleString(),       // Get the current timestamp
+        sensorId: currentSensorId,
+        value: measurementValue,
+        description: measurementDescription
     }
+
+    // Check if it's create or edit
+    const isCreate = measurementId == '';
+    let url = '';
+    let method = '';
+    if (isCreate) {
+        url = `${API_URL}/measurements`;
+        method = 'POST';       
+    }
+    else {
+        url = `${API_URL}/measurements/${measurementId}`;
+        method = 'PUT';
+    }        
+    
+    // Create a new measurement object
+    fetch(url, {
+        method: method,
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(measurementData)       // Send the new sensor data to the server
+    })
+    .then(response => response.json())       // Parse the response as JSON
+    .then(data => {
+        console.log('Measurement added: ', data);       // Log the response data
+        document.getElementById('measurementValue').value = '';                   // Clear the input field
+        document.getElementById('measurementDescription').value = '';                   // Clear the input field
+        document.getElementById('measurementForm').style.display = 'none';       // Hide the sensor form
+
+        // Add the sensor to the room's sensor array
+        fetch(`${API_URL}/sensors/${currentSensorId}`)       // Fetch the room data from the server
+            .then(response => response.json())       // Parse the response as JSON
+            .then(sensor => {
+                const updatedMeasurements = [ ...sensor.measurements, data.id ];       // Create a new array with the existing measurements and the new measurement ID
+                return fetch(`${API_URL}/sensors/${currentSensorId}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        ...sensor,       // Spread the existing sensor data
+                        measurements: updatedMeasurements   // Actualizar el array de measurements
+                    })       // Send the updated sensor data to the server
+                });
+            });
+    })
+    .then(() => {
+        measurementForm.style.display = 'none';       // Hide the sensor form
+        loadMeasurements(currentSensorId);       // Refresh the sensor list
+    })
+    .catch(error => console.error('Error adding measurement:', error));       // Handle errors
 });
 
 
@@ -420,12 +506,30 @@ function editMeasurement(id, value) {
 }
 
 // Delete room function
-function deleteMeasurement(measurementId) {
-    fetch(`${API_URL}/measurements/${measurementId}`, {
-        method: 'DELETE'        // Send a DELETE request to the server to delete the room
-    })
-    .then(() => loadMeasurements(currentSensorId))        // Reload the lit of rooms
-    .catch(error => console.error('Error modifying measurement:', error));
+function deleteMeasurement(measurementId, sensorId) {
+    fetch(`${API_URL}/sensors/${sensorId}`)
+        .then(response => response.json())       // Parse the response as JSON
+        .then(sensor => {
+            const updatedMeasurements = sensor.measurements.filter(measurement => measurement !== measurementId);       // Create a new array with the existing measurements and the new measurement ID
+            return fetch(`${API_URL}/sensors/${sensorId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    ...sensor,       // Spread the existing sensor data
+                    measurements: updatedMeasurements   // Actualizar el array de measurements
+                })       // Send the updated sensor data to the server
+            });
+        })
+        .then(() => {
+            // Delete the measurement from the server
+            return fetch(`${API_URL}/measurements/${measurementId}`, {
+                method: 'DELETE'        // Send a DELETE request to the server to delete the room
+            });
+        })
+        .then(() => loadMeasurements(currentSensorId))        // Reload the lit of rooms
+        .catch(error => console.error('Error modifying measurement:', error));
 }
 
 
