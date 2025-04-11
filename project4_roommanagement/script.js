@@ -201,7 +201,8 @@ document.getElementById("submitSensorButton").addEventListener("click", () => {
     document.getElementById('sensorName').value = '';                   // Clear the input field
     document.getElementById('sensorForm').style.display = 'none';       // Hide the sensor form
 
-    if (sensorName) {
+    if (sensorName && currentRoomId) {
+        // Create a new sensor object with the room ID and name
         fetch(`${API_URL}/sensors`, {
             method: 'POST',
             headers: {
@@ -209,12 +210,30 @@ document.getElementById("submitSensorButton").addEventListener("click", () => {
             },
             body: JSON.stringify({ name: sensorName, roomId: currentRoomId, measurements: [] })       // Send the new sensor data to the server
         })
+        .then(response => response.json())       // Parse the response as JSON
         .then(data => {
             console.log('Sensor added: ', data);       // Log the response data
             document.getElementById('sensorName').value = '';                   // Clear the input field
             document.getElementById('sensorForm').style.display = 'none';       // Hide the sensor form
-            loadSensors(currentRoomId);        // Refresh the sensor list
+
+            // Add the sensor to the room's sensor array
+            fetch(`${API_URL}/rooms/${currentRoomId}`)       // Fetch the room data from the server
+                .then(response => response.json())       // Parse the response as JSON
+                .then(room => {
+                    const updatedSensors = [ ...room.sensors, data.id ];       // Create a new array with the existing sensors and the new sensor ID
+                    return fetch(`${API_URL}/rooms/${currentRoomId}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            ...room,       // Spread the existing room data
+                            sensors: updatedSensors   // Actualizar el array de sensores
+                        })       // Send the updated room data to the server
+                    });
+                });
         })
+        .then(() => loadSensors(currentRoomId))        // Refresh the sensor list
         .catch(error => console.error('Error adding sensor:', error));       // Handle errors
     }
 });
@@ -287,7 +306,7 @@ function loadMeasurements(sensorId) {
                     <td>${measurement.id}</td>
                     <td>${measurement.timestamp}</td>
                     <td>${measurement.value}</td>
-                    <td>${measurement.comment}</td>
+                    <td>${measurement.description}</td>
                     <button onclick="editMeasurement('${measurement.value}', '${measurement.name}')">Rename</button>
                     <button onclick="deleteMeasurement('${measurement.id}')">Delete</button>
                 `; // Create a new div for each sensor with edit and delete buttons
@@ -323,22 +342,45 @@ document.getElementById("submitMeasurementButton").addEventListener("click", () 
     document.getElementById('measurementDescription').value = '';                   // Clear the input field
     document.getElementById('measurementForm').style.display = 'none';       // Hide the sensor form
 
-    if (measurementValue) {
+    if (measurementValue && currentSensorId) {
+        // Create a new measurement object
         fetch(`${API_URL}/measurements`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ name: measurementValue + " " + measurementDescription })       // Send the new sensor data to the server
+            body: JSON.stringify({ 
+                timestamp: new Date().toISOString(),       // Get the current timestamp
+                value: measurementValue,
+                description: measurementDescription,
+                sensorsId: currentSensorId
+            })       // Send the new sensor data to the server
         })
         .then(data => {
             console.log('Measurement added: ', data);       // Log the response data
             document.getElementById('measurementValue').value = '';                   // Clear the input field
             document.getElementById('measurementDescription').value = '';                   // Clear the input field
             document.getElementById('measurementForm').style.display = 'none';       // Hide the sensor form
-            loadMeasurements(currentSensorId);        // Refresh the sensor list
+
+            // Add the sensor to the room's sensor array
+            fetch(`${API_URL}/sensors/${currentSensorId}`)       // Fetch the room data from the server
+                .then(response => response.json())       // Parse the response as JSON
+                .then(sensor => {
+                    const updatedMeasurements = [ ...sensor.measurements, data.id ];       // Create a new array with the existing measurements and the new measurement ID
+                    return fetch(`${API_URL}/sensors/${currentSensorId}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            ...sensor,       // Spread the existing sensor data
+                            measurements: updatedMeasurements   // Actualizar el array de measurements
+                        })       // Send the updated sensor data to the server
+                    });
+                });
         })
-        .catch(error => console.error('Error adding sensor:', error));       // Handle errors
+        .then(() => loadMeasurements(currentSensorId))        // Refresh the sensor list
+        .catch(error => console.error('Error adding measurement:', error));       // Handle errors
     }
 });
 
