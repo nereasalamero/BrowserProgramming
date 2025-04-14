@@ -54,8 +54,6 @@ function loadRooms(searchTerm = '') {
         .catch(error => console.error('Error fetching rooms:', error));       // Handle errors
 }
 
-
-
 // Search field functionality
 document.getElementById('search').addEventListener('input', (event) => {
     loadRooms(event.target.value);
@@ -63,13 +61,13 @@ document.getElementById('search').addEventListener('input', (event) => {
 
 // Add room button functionality
 document.getElementById("addRoomButton").addEventListener("click", () => {
-    document.getElementById('roomForm').style.display = 'block';       // Toggle the visibility of the room form
-});
-
-// Cancel button functionality
-document.getElementById("cancelRoomButton").addEventListener("click", () => {
-    document.getElementById('roomName').value = '';                   // Clear the input field
-    document.getElementById('roomForm').style.display = 'none';       // Hide the room form
+    const roomForm = document.getElementById('roomForm');
+    if (roomForm.style.display === "none" || roomForm.style.display === "") {
+        roomForm.style.display = "block";       // Show the filter section
+    } else {
+        document.getElementById('roomName').value = '';                   // Clear the input field
+        roomForm.style.display = "none";        // Hide the filter section
+    }
 });
 
 // Submit button functionality
@@ -95,7 +93,6 @@ document.getElementById("submitRoomButton").addEventListener("click", () => {
         .catch(error => console.error('Error adding room:', error));       // Handle errors
     }
 });
-
 
 // Edit room function
 function editRoom(id, name) {
@@ -181,18 +178,19 @@ function loadSensors(roomId) {
 
 // Add sensor button functionality
 document.getElementById("addSensorButton").addEventListener("click", () => {
-    document.getElementById('sensorForm').style.display = 'block';       // Toggle the visibility of the room form
+    const sensorForm = document.getElementById('sensorForm');
+
+    if (sensorForm.style.display === "none" || sensorForm.style.display === "") {
+        sensorForm.style.display = "block";       // Show the filter section
+    } else {
+        document.getElementById('sensorName').value = '';                   // Clear the input field
+        sensorForm.style.display = "none";       // Hide the filter section
+    }
 });
 
 // Close button functionality
 document.getElementById("closeSensorButton").addEventListener("click", () => {
     document.getElementById('sensorSection').style.display = 'none';       // Toggle the visibility of the room form
-});
-
-// Cancel button functionality
-document.getElementById("cancelSensorButton").addEventListener("click", () => {
-    document.getElementById('sensorName').value = '';                   // Clear the input field
-    document.getElementById('sensorForm').style.display = 'none';       // Hide the sensor form
 });
 
 // Submit button functionality
@@ -337,7 +335,7 @@ function openMeasurementForm(measurement = null) {
 
 // Function to fetch and display measurements for a sensor
 function loadMeasurements(sensorId) {
-    fetch(`${API_URL}/measurements?sensorsId=${sensorId}`)       // Fetch sensors for the selected room from the server
+    fetch(`${API_URL}/measurements?sensorId=${sensorId}`)       // Fetch sensors for the selected room from the server
         .then(response => response.json())
         .then(measurements => {
             console.log('Measurements fetched: ', measurements);       // Log the response data
@@ -382,20 +380,22 @@ function loadMeasurements(sensorId) {
 
 // Add button functionality
 document.getElementById("addMeasurementButton").addEventListener("click", () => {
-    openMeasurementForm();
+    const measurementForm = document.getElementById('measurementForm');       // Get the sensor form element
+    
+    if(measurementForm.style.display === "none" || measurementForm.style.display === "") {
+        openMeasurementForm();
+    }
+    else {
+        document.getElementById('measurementValue').value = '';                   // Clear the input field
+        document.getElementById('measurementDescription').value = '';                   // Clear the input field
+        measurementForm.style.display = 'none';       // Hide the sensor form
+    }
 });
 
 // Close button functionality
 document.getElementById("closeMeasurementButton").addEventListener("click", () => {
     document.getElementById('measurementForm').style.display = 'none';       // Hide the room form
     document.getElementById('measurementSection').style.display = 'none';       // Hide the room form
-});
-
-// Cancel button functionality
-document.getElementById("cancelMeasurementButton").addEventListener("click", () => {
-    document.getElementById('measurementName').value = '';                   // Clear the input field
-    document.getElementById('measurementValue').value = '';                   // Clear the input field
-    document.getElementById('measurementForm').style.display = 'none';       // Hide the room form
 });
 
 // Submit button functionality
@@ -532,6 +532,94 @@ function deleteMeasurement(measurementId, sensorId) {
         .catch(error => console.error('Error modifying measurement:', error));
 }
 
+
+
+/***********************************************
+ * 
+ *            FILTERING MEASUREMENTS
+ * 
+ ***********************************************/
+document.getElementById("filterButton").addEventListener("click", () => {
+    const filterSection = document.getElementById("filterSection");
+    if (filterSection.style.display === "none" || filterSection.style.display === "") {
+        filterSection.style.display = "block";       // Show the filter section
+    } else {
+        filterSection.style.display = "none";       // Hide the filter section
+    }
+});
+
+document.getElementById("applyFilterButton").addEventListener("click", async () => {
+    const sensorName = document.getElementById("filterSensorName").value.toLowerCase();
+    const minValue = parseFloat(document.getElementById("filterMinValue").value);
+    const maxValue = parseFloat(document.getElementById("filterMaxValue").value);
+  
+    try {
+        const roomRes = await fetch(`${API_URL}/rooms`);
+        const rooms = await roomRes.json();
+        const sensorRes = await fetch(`${API_URL}/sensors`);
+        const sensors = await sensorRes.json();
+  
+        // Filter sensors by name (if provided)
+        const matchingSensors = sensors.filter(sensor =>
+            !sensorName || sensor.name.toLowerCase().includes(sensorName)
+        );
+
+        // Create maps for sensors and rooms (for faster lookup)
+        const sensorMap = Object.fromEntries(sensors.map(sensor => [sensor.id, sensor]));
+        const roomMap = Object.fromEntries(rooms.map(room => [room.id, room.name]));
+    
+        // For all matching sensors, fetch measurements
+        const measurementPromises = matchingSensors.map(sensor =>
+            fetch(`${API_URL}/measurements?sensorId=${sensor.id}`).then(res => res.json())
+        );
+    
+        const allMeasurementsArrays = await Promise.all(measurementPromises);
+        const allMeasurements = allMeasurementsArrays.flat();
+    
+        /* 
+        * Apply value filtering
+        * (number >= minValue) and (number <= maxValue)
+        */
+        const filtered = allMeasurements.filter(m => {
+            const value = parseFloat(m.value);
+            return (!isNaN(minValue) ? value >= minValue : true) &&
+                (!isNaN(maxValue) ? value <= maxValue : true);
+        });
+    
+        // Display filtered measurements
+        const resultDiv = document.getElementById("filteredResults");
+        if (filtered.length == 0) {
+            resultDiv.innerHTML = "<p>No matching measurements found.</p>";
+        } else {
+            resultDiv.innerHTML = `
+            <table border="1">
+                <tr>
+                    <th>Room</th>
+                    <th>Sensor</th>
+                    <th>Timestamp</th>
+                    <th>Value</th>
+                    <th>Description</th>
+                </tr>
+                ${filtered.map(m => {
+                    const sensor = sensorMap[m.sensorId];
+                    const roomName = sensor ? roomMap[sensor.roomId] : "–";
+                    return`
+                    <tr>
+                        <td>${roomName}</td>
+                        <td>${sensor?.name}</td>
+                        <td>${m.timestamp || "–"}</td>
+                        <td>${m.value}</td>
+                        <td>${m.description || "–"}</td>
+                    </tr>
+                `}).join("")}
+            </table>
+            `;
+        }
+    } catch (err) {
+      console.error("Error filtering measurements:", err);
+    }
+  });
+  
 
 /***********************************************
  * 

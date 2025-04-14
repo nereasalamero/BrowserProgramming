@@ -12,12 +12,23 @@
 
         <input type="text" id="search" placeholder="Search for rooms..." />
         <button id="addRoomButton">Add Room</button>
+        <button id="filterButton">Filter measurements</button>
+
+        <!-- Filter measurements -->
+        <div id="filterSection" style="margin-top: 30px; display:none;">
+            <h2>Filter Measurements</h2>
+            <input type="text" id="filterSensorName" placeholder="Sensor name..." />
+            <input type="number" id="filterMinValue" placeholder="Min value" />
+            <input type="number" id="filterMaxValue" placeholder="Max value" />
+            <button id="applyFilterButton">Filter</button>
+            <div id="filteredResults"></div>
+        </div>
+
         
         <!-- Room details -->
         <div id="roomForm" style="display:none;">
             <input type="text" id="roomName" placeholder="Room Name" required />
             <button id="submitRoomButton">Submit</button>
-            <button id="cancelRoomButton">Cancel</button>
         </div>
         <div id="roomList">
                 <!-- Rooms will be dynamically added here -->
@@ -34,7 +45,6 @@
                 <div id="sensorForm" style="display:none;">
                     <input type="text" id="sensorName" placeholder="Sensor Name" required />
                     <button id="submitSensorButton">Submit</button>
-                    <button id="cancelSensorButton">Cancel</button>
                 </div>
                 <ul id="sensorList">
                     <!-- Sensors will be dynamically added here -->
@@ -54,7 +64,6 @@
                     <input type="number" id="measurementValue" placeholder="Measurement Value" required />
                     <input type="text" id="measurementDescription" placeholder="Measurement Description" />
                     <button id="submitMeasurementButton">Submit</button>
-                    <button id="cancelMeasurementButton">Cancel</button>
                 </div>
                 <table id="measurementTable">
                     <tr>
@@ -64,7 +73,7 @@
                         <th>Description</th>
                     </tr>
                     <!-- Measurement rows will be dynamically added here -->
-                  </table>
+                </table>
             </div>
         </div>
         

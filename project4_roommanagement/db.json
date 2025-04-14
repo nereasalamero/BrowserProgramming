@@ -6,6 +6,14 @@
       "sensors": [
         "dde4"
       ]
+    },
+    {
+      "id": "5388",
+      "name": "Kitchen",
+      "sensors": [
+        "1d5d",
+        "eb10"
+      ]
     }
   ],
   "sensors": [
@@ -14,23 +22,48 @@
       "name": "Temperature",
       "roomId": "5795",
       "measurements": [
-        null,
-        null,
-        null,
-        "4006",
-        "4006",
-        "4006",
-        "4006"
+        "aa03"
+      ]
+    },
+    {
+      "id": "1d5d",
+      "name": "Temperature",
+      "roomId": "5388",
+      "measurements": [
+        "9ab7"
+      ]
+    },
+    {
+      "id": "eb10",
+      "name": "Humidity",
+      "roomId": "5388",
+      "measurements": [
+        "6cbe",
+        "6cbe"
       ]
     }
   ],
   "measurements": [
     {
-      "timestamp": "11/4/2025, 15:43:12",
+      "id": "aa03",
+      "timestamp": "14/4/2025, 10:18:27",
       "sensorId": "dde4",
       "value": "25",
-      "description": "C",
-      "id": "4006"
+      "description": "c"
+    },
+    {
+      "timestamp": "14/4/2025, 10:28:07",
+      "sensorId": "eb10",
+      "value": "46",
+      "description": "ee",
+      "id": "6cbe"
+    },
+    {
+      "id": "9ab7",
+      "timestamp": "14/4/2025, 11:53:41",
+      "sensorId": "1d5d",
+      "value": "30",
+      "description": "C"
     }
   ]
 }
