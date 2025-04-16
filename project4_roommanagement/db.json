@@ -14,6 +14,13 @@
         "1d5d",
         "eb10"
       ]
+    },
+    {
+      "id": "a2e1",
+      "name": "Bedroom",
+      "sensors": [
+        "2e4e"
+      ]
     }
   ],
   "sensors": [
@@ -22,16 +29,15 @@
       "name": "Temperature",
       "roomId": "5795",
       "measurements": [
-        "aa03"
+        "aa03",
+        "4278"
       ]
     },
     {
       "id": "1d5d",
       "name": "Temperature",
       "roomId": "5388",
-      "measurements": [
-        "9ab7"
-      ]
+      "measurements": []
     },
     {
       "id": "eb10",
@@ -39,7 +45,18 @@
       "roomId": "5388",
       "measurements": [
         "6cbe",
-        "6cbe"
+        "6cbe",
+        "6cbe",
+        "66b0"
+      ]
+    },
+    {
+      "id": "2e4e",
+      "name": "Temperature",
+      "roomId": "a2e1",
+      "measurements": [
+        "dd77",
+        "91b7"
       ]
     }
   ],
@@ -52,18 +69,39 @@
       "description": "c"
     },
     {
-      "timestamp": "14/4/2025, 10:28:07",
+      "timestamp": "16/4/2025, 12:34:48",
       "sensorId": "eb10",
       "value": "46",
-      "description": "ee",
+      "description": "mm",
       "id": "6cbe"
     },
     {
-      "id": "9ab7",
-      "timestamp": "14/4/2025, 11:53:41",
-      "sensorId": "1d5d",
-      "value": "30",
+      "id": "4278",
+      "timestamp": "16/4/2025, 12:34:38",
+      "sensorId": "dde4",
+      "value": "26",
       "description": "C"
+    },
+    {
+      "id": "66b0",
+      "timestamp": "16/4/2025, 12:49:35",
+      "sensorId": "eb10",
+      "value": "35",
+      "description": "sss"
+    },
+    {
+      "id": "dd77",
+      "timestamp": "16/4/2025, 12:57:55",
+      "sensorId": "2e4e",
+      "value": "15",
+      "description": "ºC"
+    },
+    {
+      "id": "91b7",
+      "timestamp": "16/4/2025, 12:58:12",
+      "sensorId": "2e4e",
+      "value": "25",
+      "description": "F"
     }
   ]
 }
