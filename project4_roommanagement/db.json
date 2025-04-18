@@ -30,7 +30,8 @@
       "roomId": "5795",
       "measurements": [
         "aa03",
-        "4278"
+        "4278",
+        "aa03"
       ]
     },
     {
@@ -62,11 +63,11 @@
   ],
   "measurements": [
     {
-      "id": "aa03",
-      "timestamp": "14/4/2025, 10:18:27",
+      "timestamp": "16/4/2025, 15:02:21",
       "sensorId": "dde4",
-      "value": "25",
-      "description": "c"
+      "value": "10",
+      "description": "C",
+      "id": "aa03"
     },
     {
       "timestamp": "16/4/2025, 12:34:48",

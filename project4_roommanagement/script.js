@@ -138,7 +138,6 @@ function selectRoom(room) {
     currentRoomName.innerText = room.name;       // Display the current room name
     sensorSection.style.display = 'block';       // Show the sensor section
 
-    //  showEditDeleteOptions(room); // Call a function to show edit/delete options
     loadSensors(room.id);       // Load sensors for the selected room
 }
 
@@ -470,42 +469,7 @@ document.getElementById("submitMeasurementButton").addEventListener("click", () 
     .catch(error => console.error('Error adding measurement:', error));       // Handle errors
 });
 
-
-document.getElementById('filterMeasurement').addEventListener('input', (event) => {
-    const filterValue = event.target.value.toLowerCase();       // Get the filter value from the input field
-    const measurementList = document.getElementById('measurementList');       // Get the measurement list element
-    const allMeasurements = Array.from(measurementList.children);       // Get all measurements
-
-    allMeasurements.forEach(measurement => {
-        const measurementName = measurement.querySelector('span').textContent.toLowerCase();       // Get the measurement name from the span element
-        if (measurementName.includes(filterValue)) {
-            measurement.style.display = 'block';       // Show the measurement if it matches the filter value
-        } else {
-            measurement.style.display = 'none';       // Hide the measurement if it doesn't match the filter value
-        }
-    });
-});
-
-
-// Edit sensor function
-function editMeasurement(id, value) {
-    const newValue = prompt("Enter new value:", value);       // Prompt the user for a new room name
-    const newDescription = prompt("Enter new description:", description);       // Prompt the user for a new room name
-
-    if (newValue) {
-        fetch(`${API_URL}/measurements/${id}`, {
-            method: 'PUT',        // Send a PUT request to update the room name
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ value: newValue, description: newDescription })       // Send the updated room data to the server
-        })
-        .then(() => loadMeasurements(currentSensorId))        // Reload the lit of rooms
-        .catch(error => console.error('Error modifying measurement:', error));
-    }
-}
-
-// Delete room function
+// Delete measurement function
 function deleteMeasurement(measurementId, sensorId) {
     fetch(`${API_URL}/sensors/${sensorId}`)
         .then(response => response.json())       // Parse the response as JSON

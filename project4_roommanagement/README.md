@@ -21,5 +21,5 @@ This is a Room Management Application that allows users to add, view, edit, and 
 ## Features
 - Add, edit, and delete rooms, sensors, and measurements.
 - Search for rooms and sensors by name.
-- FIlter measurements.
+- Filter measurements.
 - Responsive design for various screen sizes.
